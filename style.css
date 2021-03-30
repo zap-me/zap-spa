@@ -1,11 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+
+}
+
 .body-container {
   display: flex;
   flex-wrap: wrap;
   
 }
 
-.body-container > img {
+.catalog-img {
   width: 50%;
   box-shadow: 0 0 0 1px black;
   margin-bottom: 10px;
+  border-radius: 12.5%;
+}
+
+.page-img {
+  width: 100%;
+}
+
+.loading-img {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
 }
