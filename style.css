@@ -8,16 +8,17 @@ body {
 
 .body-container {
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
   width: 100vw;
   
 }
 
 .catalog-img {
-  width: 50%;
+  width: 40%;
   box-shadow: 0 0 0 1px black;
-  margin-bottom: 10px;
-  border-radius: 12.5%;
+  margin-bottom: 5vh;
+  border-radius: 6.5%;
 }
 
 .page-img {
