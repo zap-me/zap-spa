@@ -1,5 +1,43 @@
 // may need to go to https://cors-anywhere.herokuapp.com/corsdemo & click "Request temporary access"
 
+
+const goToHomePage = function() {
+
+
+  if (localStorage.getItem("returnedApiData") === null) {
+
+    document.querySelector(".body-container").innerHTML="<img class='loading-img' src='loading.gif'/>";
+
+    fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
+      {
+      headers: 
+        {
+        'Content-Type': 'application/json'
+        } 
+      }
+    ).then(response => response.json()).then(function(data) {
+
+    document.querySelector(".body-container").innerHTML="";
+    Object.entries(data).forEach(
+
+    function(element) { 
+      console.log(element);
+      appendData(element); 
+  }
+
+  )
+  }
+  );
+
+  }
+
+  else {
+    document.querySelector(".body-container").innerHTML="";
+    iterateThruAndAppend(JSON.parse(localStorage.getItem("returnedApiData")));
+  }
+
+};
+
 const iterateThruAndAppend = function(items) {
   items.forEach(
   function(element) {
@@ -14,8 +52,13 @@ const iterateThruAndAppend = function(items) {
 const makePage = function(element_string) {
   console.log(element_string.image.uri);
   document.querySelector(".body-container").innerHTML="";
+  document.querySelector(".body-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goToHomePage();' ><img class='back-img' src='back.svg'  /></div></div>";
   document.querySelector(".body-container").innerHTML+="<img class='page-img' src='" + element_string.image.uri + "' />";
-  document.querySelector(".body-container").innerHTML+="<p class='retailer-title'>" + element_string.label + "</p>";
+  document.querySelector(".body-container").innerHTML+="<div class='title-holder' ><p class='category-title'>" + element_string.category + "</p></div>";
+  document.querySelector(".body-container").innerHTML+="<div class='title-holder' ><p class='retailer-title'>" + element_string.label + "</p></div>";
+  if (element_string.description) {
+    document.querySelector(".body-container").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
+  }
 };
 
 const appendData = function(jsonItem) {
@@ -25,37 +68,5 @@ const appendData = function(jsonItem) {
 };
 
 
-if (localStorage.getItem("returnedApiData") === null) {
 
-  document.querySelector(".body-container").innerHTML="<img class='loading-img' src='loading.gif'/>";
-
-  fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
-    {
-    headers: 
-      {
-      'Content-Type': 'application/json'
-      } 
-    }
-  ).then(response => response.json()).then(function(data) {
-
-  document.querySelector(".body-container").innerHTML="";
-  Object.entries(data).forEach(
-
-  function(element) { 
-    console.log(element);
-    appendData(element); 
-}
-
-)
-}
-);
-
-}
-
-else {
-
- 
-  document.querySelector(".body-container").innerHTML="";
-  iterateThruAndAppend(JSON.parse(localStorage.getItem("returnedApiData")));
-}
-
+goToHomePage();
