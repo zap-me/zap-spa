@@ -62,6 +62,14 @@ body {
   height: 5vh;
 }
 
+.main-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 7.5vh;
+}
+
 .back-img-container {
   height: 100%;
   width: 20%;
@@ -70,3 +78,9 @@ body {
 .back-img {
   height: 50%;
 }
+
+.zap-logo-svg {
+  height: 50%;
+}
+
+

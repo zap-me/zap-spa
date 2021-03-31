@@ -17,7 +17,7 @@ const goToHomePage = function() {
       }
     ).then(response => response.json()).then(function(data) {
 
-    document.querySelector(".body-container").innerHTML="";
+    document.querySelector(".body-container").innerHTML="<div class='main-navbar'><img class='zap-logo-svg' src='zap-logo.svg'/></div>";
     Object.entries(data).forEach(
 
     function(element) { 
@@ -32,7 +32,7 @@ const goToHomePage = function() {
   }
 
   else {
-    document.querySelector(".body-container").innerHTML="";
+    document.querySelector(".body-container").innerHTML="<div class='main-navbar'><img class='zap-logo-svg' src='zap-logo.svg'/></div>";
     iterateThruAndAppend(JSON.parse(localStorage.getItem("returnedApiData")));
   }
 
