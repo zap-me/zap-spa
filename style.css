@@ -23,10 +23,13 @@ body {
   box-shadow: 0 0 0 1px black;
   margin-bottom: 5vh;
   border-radius: 6.5%;
+  object-fit: cover;
 }
 
 .page-img {
-  width: 100%;
+  width: 100vw;
+  height: 35vh;
+  object-fit: cover;
 }
 
 .loading-img {
@@ -35,17 +38,17 @@ body {
   left: 50vw;
 }
 
+
 .title-holder {
-  margin-top: 5vh;
+ width: 100vw;
+ height: 10vh;
 }
 
-.title-holder , .title-holder > p {
- width: 100vw;
- font-family: 'Roboto', sans-serif;
-}
 
 .title-holder > p {
-  margin-left: 5vw;
+ margin : 0;
+ margin-left: 5vw;
+ font-family: 'Roboto', sans-serif;
 }
 
 .retailer-title {
