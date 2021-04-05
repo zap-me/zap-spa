@@ -8,6 +8,10 @@ body {
 
 }
 
+p {
+ font-family: 'Roboto', sans-serif;
+}
+
 .body-container {
   display: flex;
   justify-content: space-around;
@@ -47,8 +51,7 @@ body {
 
 .title-holder > p {
  margin : 0;
- margin-left: 5vw;
- font-family: 'Roboto', sans-serif;
+ margin-left: 5.5vw;
 }
 
 .retailer-title {
@@ -91,4 +94,17 @@ body {
   height: 50%;
 }
 
+.category-name-container {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+}
 
+.category-name-container > p {
+  font-size: 4vh;
+  color: black;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 5vw;
+}

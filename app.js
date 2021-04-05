@@ -39,9 +39,14 @@ const goToHomePage = function() {
 
 const iterateThruAndAppend = function(items) {
   items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
+  categoriesSoFar=[];
   items.forEach(
   function(element) {
     element_stringified = JSON.stringify(element);
+    if (categoriesSoFar.includes(element.category) === false) {
+      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p>" + element.category  + "</p></div>";
+      categoriesSoFar.push(element.category);
+    }
     document.querySelector(".body-container").innerHTML+="<img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ");' />";
     const observer = lozad(); // lazy loads elements with default selector as '.lozad'
     observer.observe();
