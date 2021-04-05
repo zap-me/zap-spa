@@ -38,6 +38,7 @@ const goToHomePage = function() {
 };
 
 const iterateThruAndAppend = function(items) {
+  items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
   items.forEach(
   function(element) {
     element_stringified = JSON.stringify(element);
