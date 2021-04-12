@@ -6,7 +6,7 @@ const goToHomePage = function() {
 
   if (localStorage.getItem("bodyContainerInnerHtml") === null) {
 
-    document.querySelector(".body-container").innerHTML="<img class='loading-img' src='loading.gif'/>";
+    document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
 
     fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
       {
