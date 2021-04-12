@@ -33,8 +33,18 @@ const goToHomePage = function() {
 
   else {
     goBack();
+    addSwiper();
   }
 
+};
+
+const addSwiper = function() {
+  console.log("called");
+  var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 2,
+    spaceBetween: 35,
+    freeMode: true,
+  });
 };
 
 const iterateThruAndAppend = function(items) {
@@ -57,12 +67,7 @@ const iterateThruAndAppend = function(items) {
   
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 2,
-      spaceBetween: 35,
-      freeMode: true,
-    });
-    console.log("added swiper!");
+  addSwiper();
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
