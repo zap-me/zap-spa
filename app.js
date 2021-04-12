@@ -33,7 +33,6 @@ const goToHomePage = function() {
 
   else {
     goBack();
-    addSwiper();
   }
 
 };
@@ -92,6 +91,7 @@ const goBack  = function() {
   document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
+  addSwiper();
 };
 
 

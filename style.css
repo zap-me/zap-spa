@@ -71,6 +71,7 @@ p {
 .header-navbar {
   width: 100vw;
   height: 5vh;
+  margin-top: 2.5vh;
 }
 
 .main-navbar {
