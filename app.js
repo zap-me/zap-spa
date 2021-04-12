@@ -46,6 +46,11 @@ const addSwiper = function() {
   });
 };
 
+const scrollToTop = function() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 const iterateThruAndAppend = function(items) {
   items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
   categoriesSoFar=[];
@@ -73,6 +78,7 @@ const iterateThruAndAppend = function(items) {
 const makePage = function(element_string) {
   console.log(element_string.image.uri);
   document.querySelector(".body-container").innerHTML="";
+  scrollToTop();
   document.querySelector(".body-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
   document.querySelector(".body-container").innerHTML+="<img class='page-img' src='" + element_string.image.uri + "' />";
   document.querySelector(".body-container").innerHTML+="<div class='title-holder' ><p class='category-title'>" + element_string.category + "</p></div>";
