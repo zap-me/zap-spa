@@ -108,3 +108,13 @@ p {
   padding: 0px;
   margin-left: 5vw;
 }
+
+.swiper-container {
+  height: 25vh;
+  display: flex;
+}
+
+.swiper-slide {
+  width: 25%;
+  margin-left: 5vw;
+}

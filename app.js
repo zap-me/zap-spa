@@ -43,15 +43,26 @@ const iterateThruAndAppend = function(items) {
   items.forEach(
   function(element) {
     element_stringified = JSON.stringify(element);
-    if (categoriesSoFar.includes(element.category) === false) {
+    if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
       document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p>" + element.category  + "</p></div>";
-      categoriesSoFar.push(element.category);
+      document.querySelector(".body-container").innerHTML+="<div class='swiper-container'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
+      categoriesSoFar.push("category-" + element.categoryId);
     }
-    document.querySelector(".body-container").innerHTML+="<img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ");' />";
-    const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-    observer.observe();
+    var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
+    console.log(categoriesSoFar[categoriesSoFar.length - 1]);
+    console.log(categoriesSoFar);
+    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ");' /></div>";
   }
   );
+  
+  const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+  observer.observe();
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 2,
+      spaceBetween: 35,
+      freeMode: true,
+    });
+    console.log("added swiper!");
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
