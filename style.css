@@ -45,13 +45,15 @@ p {
 
 .title-holder {
  width: 100vw;
- height: 10vh;
+ height: auto;
+ padding-bottom: 2vh;
 }
 
 
 .title-holder > p {
  margin : 0;
  margin-left: 5.5vw;
+ margin-top: 2.5vh;
 }
 
 .retailer-title {
@@ -195,7 +197,6 @@ p {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 17.5vh;
   box-shadow: 5px 10px 25px 5px #888888;
 
 }
