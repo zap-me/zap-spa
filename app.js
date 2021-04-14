@@ -107,7 +107,13 @@ const viewAll = function(categoryId) {
   scrollToTop();
   document.querySelector(".body-container").innerHTML+="<div class='viewall-page-container'></div>";
   document.querySelector(".viewall-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
-  console.log(JSON.parse(localStorage.getItem("sortedCategories")).filter(element => element.categoryId == categoryId));
+  var sortedCategories = JSON.parse(localStorage.getItem("sortedCategories")).filter(element => element.categoryId == categoryId);
+  console.log(sortedCategories);
+  sortedCategories.forEach(
+    function(retailer) {
+      document.querySelector(".viewall-page-container").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/></div>";
+    }
+  );
 };
 
 
