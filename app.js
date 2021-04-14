@@ -21,7 +21,6 @@ const goToHomePage = function() {
     Object.entries(data).forEach(
 
     function(element) { 
-      console.log(element);
       appendData(element); 
   }
 
@@ -53,12 +52,13 @@ const scrollToTop = function() {
 
 const iterateThruAndAppend = function(items) {
   items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
+  localStorage.setItem("sortedCategories",JSON.stringify(items));
   categoriesSoFar=[];
   items.forEach(
   function(element) {
     element_stringified = JSON.stringify(element);
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
-      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p>" + element.category  + "</p></div>";
+      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
       document.querySelector(".body-container").innerHTML+="<div class='swiper-container'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
       categoriesSoFar.push("category-" + element.categoryId);
     }
@@ -100,6 +100,14 @@ const goBack  = function() {
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addSwiper();
+};
+
+const viewAll = function(categoryId) {
+  document.querySelector(".body-container").innerHTML="";
+  scrollToTop();
+  document.querySelector(".body-container").innerHTML+="<div class='viewall-page-container'></div>";
+  document.querySelector(".viewall-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
+  console.log(JSON.parse(localStorage.getItem("sortedCategories")).filter(element => element.categoryId == categoryId));
 };
 
 

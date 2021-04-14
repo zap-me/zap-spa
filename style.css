@@ -61,7 +61,7 @@ p {
 }
 
 .category-title {
-  font-size: 50px;
+  font-size: 1.75vh;
   color: blue;
 }
 
@@ -99,19 +99,20 @@ p {
 }
 
 .category-name-container {
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
   height: 10vh;
   display: flex;
   align-items: center;
 }
 
-.category-name-container > p {
-  font-size: 4vh;
-  color: black;
+.category-para {
+  color: #767676;
   margin: 0px;
   padding: 0px;
   margin-left: 5vw;
- font-size: 2.5vh;
+  font-size: 2.5vh;
 }
 
 .swiper-container {
@@ -209,3 +210,23 @@ p {
   justify-content: start;
 }
 
+.view-all-btn {
+  color: #767676;
+  margin: 0px;
+  padding: 0px;
+  font-size: 2.5vh;
+  margin-right: 5vw;
+}
+
+.viewall-page-container {
+  display:flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  y-overflow: scroll;
+}
+
+.viewall-retailer-card {
+
+  box-shadow: 5px 10px 25px 5px #888888;
+}
