@@ -76,14 +76,6 @@ p {
   margin-top: 2.5vh;
 }
 
-.main-navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 7.5vh;
-}
-
 .back-img-container {
   height: 100%;
   width: 20%;
@@ -271,6 +263,7 @@ p {
   width: 27vw;
   height: 3.6vh;
   border-radius: 2.5vh;
+  margin-bottom: 2vh;
 }
 
 .shop-now-text {
