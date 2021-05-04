@@ -299,3 +299,13 @@ p {
   border-color: grey;
   border-width: 0.33vh;
 }
+
+.shop-now-btn {
+  background-color: #3e6fc1;
+  width: 70vw;
+  height: 8vh;
+}
+
+.shop-now-btn > p {
+  color: white;
+}

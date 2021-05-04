@@ -1,5 +1,3 @@
-// may need to go to https://cors-anywhere.herokuapp.com/corsdemo & click "Request temporary access"
-
 
 const goToHomePage = function() {
 
@@ -8,7 +6,7 @@ const goToHomePage = function() {
 
     document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
 
-    fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
+    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getviewall", 
       {
       headers: 
         {
@@ -85,6 +83,7 @@ const makePage = function(element_string) {
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
+  document.querySelector(".retailer-page-container").innerHTML+="<div class='shop-now-btn'><p>shop</p></div>";
 };
 
 const appendData = function(jsonItem) {
