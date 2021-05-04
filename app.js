@@ -113,7 +113,7 @@ const viewAll = function(categoryId) {
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "'><p class='slider-text'>" + retailer.category + "</p></div></div>";
+	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='viewAll(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
 	categoriesInBar.push(retailer.category);
       }
     }
