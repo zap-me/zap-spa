@@ -113,12 +113,15 @@ const viewAll = function(categoryId) {
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><p class='slider-text'>" + retailer.category + "</p></div>";
+	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "'><p class='slider-text'>" + retailer.category + "</p></div></div>";
 	categoriesInBar.push(retailer.category);
       }
     }
 
   );
+  var selectedCategoryDiv = document.querySelector("#slider-id-" + categoryId);
+  selectedCategoryDiv.style.borderColor= "#3e6fc1";
+  selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
   sortedCategories.forEach(
     function(retailer) {
       document.querySelector(".viewall-categories-bar").innerHTML+="";

@@ -276,6 +276,8 @@ p {
 .viewall-categories-bar {
   height: 25vh;
   display: flex;
+  margin-top: 2.5vh;
+  margin-bottom: 2.5vh;
 }
 
 .category-rounded-container {
@@ -283,5 +285,17 @@ p {
 }
 
 .slider-text {
-  font-size: 4vw;
+  font-size: 3.5vw;
+}
+
+.slider-text-holder {
+  height: 4vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.5vh;
+  border-style: solid;
+  border-color: grey;
+  border-width: 0.33vh;
 }
