@@ -63,8 +63,6 @@ const iterateThruAndAppend = function(items) {
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
-    console.log(categoriesSoFar[categoriesSoFar.length - 1]);
-    console.log(categoriesSoFar);
     lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ");' /></div>";
   }
   );
@@ -76,7 +74,6 @@ const iterateThruAndAppend = function(items) {
 };
 
 const makePage = function(element_string) {
-  console.log(element_string.image.uri);
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
   document.querySelector(".body-container").innerHTML+="<div class='retailer-page-container'></div>";
@@ -103,17 +100,40 @@ const goBack  = function() {
 };
 
 const viewAll = function(categoryId) {
+  var categoriesInBar = [];
+  var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
+  var sortedCategories = allCategoryItems.filter(element => element.categoryId == categoryId);
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
   document.querySelector(".body-container").innerHTML+="<div class='viewall-page-container'></div>";
   document.querySelector(".viewall-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
-  var sortedCategories = JSON.parse(localStorage.getItem("sortedCategories")).filter(element => element.categoryId == categoryId);
-  console.log(sortedCategories);
+  document.querySelector(".viewall-page-container").innerHTML+="<div class='viewall-categories-bar'></div>";
+  document.querySelector(".viewall-categories-bar").innerHTML="<div class='swiper-wrapper'></div>";
+
+  allCategoryItems.forEach(
+    function(retailer) {
+      if ( categoriesInBar.includes(retailer.category) !== true ) {
+	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><p class='slider-text'>" + retailer.category + "</p></div>";
+	categoriesInBar.push(retailer.category);
+      }
+    }
+
+  );
   sortedCategories.forEach(
     function(retailer) {
+      document.querySelector(".viewall-categories-bar").innerHTML+="";
       document.querySelector(".viewall-page-container").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/><div class='viewall-text-container'><p class='category-viewall-title'>" + retailer.category.toUpperCase() + "</p></div><div class='viewall-text-container'><p class='viewall-retailer-name'>" + retailer.retailer + "<p></div>" + (retailer.description ? "<div class='viewall-text-container'><p class='viewall-retailer-description'>" + retailer.description  + "</p></div>" : "") + "<div class='viewall-text-container'><div class='shop-now-btn'><p class='shop-now-text'>Shop now</p></div></div></div>";
     }
   );
+const addCategorySwiper = function() {
+  console.log("called");
+  var categorySwiper = new Swiper('.viewall-categories-bar', {
+    slidesPerView: 3,
+    spaceBetween: 15,
+    freeMode: true,
+  });
+  };
+  addCategorySwiper();
 };
 
 
