@@ -115,7 +115,6 @@ p {
 
 .swiper-slide {
   width: 25%;
-  margin-left: 5vw;
 }
 
 .loader {
@@ -300,12 +299,12 @@ p {
   border-width: 0.33vh;
 }
 
-.shop-now-btn {
+.shop-now-div {
   background-color: #3e6fc1;
   width: 70vw;
   height: 8vh;
 }
 
-.shop-now-btn > p {
+.shop-now-div > p {
   color: white;
 }

@@ -6,7 +6,7 @@ const goToHomePage = function() {
 
     document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
 
-    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getviewall", 
+    fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
       {
       headers: 
         {
@@ -57,7 +57,7 @@ const iterateThruAndAppend = function(items) {
     element_stringified = JSON.stringify(element);
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
       document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
-      document.querySelector(".body-container").innerHTML+="<div class='swiper-container'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
+      document.querySelector(".body-container").innerHTML+="<div class='swiper-container' style='margin: 5vw;'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
@@ -83,7 +83,7 @@ const makePage = function(element_string) {
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
-  document.querySelector(".retailer-page-container").innerHTML+="<div class='shop-now-btn'><p>shop</p></div>";
+  document.querySelector(".retailer-page-container").innerHTML+="<div class='shop-now-div'><p>shop</p></div>";
 };
 
 const appendData = function(jsonItem) {
