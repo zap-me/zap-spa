@@ -9,6 +9,13 @@ const fetchData = function(endpoint, callback) {
     ).then(response => response.json()).then(callback);
 }
 
+const clearCacheBtn = function() {
+    document.getElementById("clear-cache").onclick = function() {
+        localStorage.clear();
+        location.reload();
+    };
+}
+
 const goToHomePage = function() {
     if (localStorage.getItem("bodyContainerInnerHtml") === null) {
         document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
@@ -139,3 +146,4 @@ const addCategorySwiper = function() {
 
 
 goToHomePage();
+clearCacheBtn();
