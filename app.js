@@ -15,7 +15,7 @@ const goToHomePage = function() {
       }
     ).then(response => response.json()).then(function(data) {
 
-    document.querySelector(".body-container").innerHTML="<div class='main-navbar'><img class='zap-logo-svg' src='zap-logo.svg'/></div>";
+    document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
     Object.entries(data).forEach(
 
     function(element) { 
