@@ -1,37 +1,27 @@
+const fetchData = function(endpoint, callback) {
+    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/" + endpoint,
+        {
+            headers:
+            {
+                'Content-Type': 'application/json'
+            }
+        }
+    ).then(response => response.json()).then(callback);
+}
 
 const goToHomePage = function() {
-
-
-  if (localStorage.getItem("bodyContainerInnerHtml") === null) {
-
-    document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
-
-    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getviewall", 
-      {
-      headers: 
-        {
-        'Content-Type': 'application/json'
-        } 
-      }
-    ).then(response => response.json()).then(function(data) {
-
-    document.querySelector(".body-container").innerHTML="<div class='main-navbar'><img class='zap-logo-svg' src='zap-logo.svg'/></div>";
-    Object.entries(data).forEach(
-
-    function(element) { 
-      appendData(element); 
-  }
-
-  )
-  }
-  );
-
-  }
-
-  else {
-    goBack();
-  }
-
+    if (localStorage.getItem("bodyContainerInnerHtml") === null) {
+        document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
+        fetchData("getviewall", function(data) {
+            document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
+            Object.entries(data).forEach(function(element) {
+                appendData(element);
+            });
+        });
+    }
+    else {
+        goBack();
+    }
 };
 
 const addSwiper = function() {
