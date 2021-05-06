@@ -35,9 +35,10 @@ const addSwiper = function() {
 
 //returns URL string
 const fetchWebsite = async function(retailerId) {
-  fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getdetail/" + retailerId, {headers: {"Content-Type" : "application/json"}}).then(response=>response.json()).then(function(data){
+  fetchData("getdetail/" + retailerId, function(data) {
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
-      console.log(websiteURL);
+      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
+      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
   });
 };
 
@@ -82,6 +83,7 @@ const makePage = function(element_string) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
   document.querySelector(".retailer-page-container").innerHTML+="<a class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p><div class='circle-div'><img class='fwd-btn' src='back.svg'/></div></div></div></a>";
+  document.querySelector(".retailer-page-container").innerHTML+="<div class='info-div-holder'></div>";
   fetchWebsite(element_string.retailerId);
 };
 

@@ -343,3 +343,26 @@ a {
   transform: scaleX(-1);
   height: 2vh;
 }
+
+.info-div-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 100vw;
+  height: 30vh;
+  margin-top: 5vh;
+}
+
+.info-div-holder > p {
+  margin-left: 5vw;
+}
+
+.info-title {
+  color: #3e6fc1;
+  font-size: 2vh;
+}
+
+.info-para {
+  color: grey;
+  font-size: 1.5vh;
+}
