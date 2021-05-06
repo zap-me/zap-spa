@@ -151,6 +151,12 @@ const addCategorySwiper = function() {
 };
 
 
+//WIP
+const removeAndUpdateSlider = function(currentId, newId, sortedCategories) {
+  document.querySelector("#slider-id-" + currentId).style.borderColor="grey";
+  document.querySelector("slider-id-" + newId).style.borderColor="#3e6fc1";
+  
+}
 
 goToHomePage();
 clearCacheBtn();
