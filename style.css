@@ -302,9 +302,27 @@ p {
 .shop-now-div {
   background-color: #3e6fc1;
   width: 70vw;
-  height: 8vh;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25vh;
 }
 
 .shop-now-div > p {
   color: white;
+  font-size: 2vh;
+}
+
+.shop-now-container {
+  margin-top: 5vh;
+  width: 100vw;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
 }

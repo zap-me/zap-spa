@@ -6,7 +6,7 @@ const goToHomePage = function() {
 
     document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
 
-    fetch("https://cors-anywhere.herokuapp.com/https://content.zap.me/_ps/api/zap/getviewall", 
+    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getviewall", 
       {
       headers: 
         {
@@ -43,10 +43,15 @@ const addSwiper = function() {
   });
 };
 
+//returns URL string
+const fetchWebsite = async function(retailerId) {
+  fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getdetail/" + retailerId, {headers: {"Content-Type" : "application/json"}}).then(response=>response.json()).then(function(data){document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website); console.log(websiteURL);});
+};
+
 const scrollToTop = function() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
+};
 
 const iterateThruAndAppend = function(items) {
   items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
@@ -78,12 +83,13 @@ const makePage = function(element_string) {
   document.querySelector(".retailer-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
   document.querySelector(".retailer-page-container").innerHTML+="<img class='page-img' src='" + element_string.image.uri + "' />";
   document.querySelector(".retailer-page-container").innerHTML+="<dic class='container-card'></div>";
-  document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='category-title'>" + element_string.category.toUpperCase() + "</p></div>";
+  document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='category-title' onclick='viewAll(" + element_string.categoryId + ");'>" + element_string.category.toUpperCase() + "</p></div>";
   document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='retailer-title'>" + element_string.label + "</p></div>";
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
-  document.querySelector(".retailer-page-container").innerHTML+="<div class='shop-now-div'><p>shop</p></div>";
+  document.querySelector(".retailer-page-container").innerHTML+="<a class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p></div></div></a>";
+  fetchWebsite(element_string.retailerId);
 };
 
 const appendData = function(jsonItem) {
