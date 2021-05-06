@@ -12,7 +12,7 @@ const fetchData = function(endpoint, callback) {
 const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
         localStorage.clear();
-        location.reload();
+        location.reload(true);
     };
 }
 
