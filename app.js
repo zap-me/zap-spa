@@ -44,8 +44,12 @@ const addSwiper = function() {
 const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
+      if (data.store.address) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
+      }
+      if (data.store.phone || data.store.email) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
+      }
   });
 };
 
@@ -89,7 +93,7 @@ const makePage = function(element_string) {
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
-  document.querySelector(".retailer-page-container").innerHTML+="<a class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p><div class='circle-div'><img class='fwd-btn' src='back.svg'/></div></div></div></a>";
+  document.querySelector(".retailer-page-container").innerHTML+="<a target='_blank' class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p><div class='circle-div'><img class='fwd-btn' src='back.svg'/></div></div></div></a>";
   document.querySelector(".retailer-page-container").innerHTML+="<div class='info-div-holder'></div>";
   fetchWebsite(element_string.retailerId);
 };
