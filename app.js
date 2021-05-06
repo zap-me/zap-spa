@@ -45,7 +45,10 @@ const addSwiper = function() {
 
 //returns URL string
 const fetchWebsite = async function(retailerId) {
-  fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getdetail/" + retailerId, {headers: {"Content-Type" : "application/json"}}).then(response=>response.json()).then(function(data){document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website); console.log(websiteURL);});
+  fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/getdetail/" + retailerId, {headers: {"Content-Type" : "application/json"}}).then(response=>response.json()).then(function(data){
+      document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
+      console.log(websiteURL);
+  });
 };
 
 const scrollToTop = function() {
@@ -88,7 +91,7 @@ const makePage = function(element_string) {
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
-  document.querySelector(".retailer-page-container").innerHTML+="<a class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p></div></div></a>";
+  document.querySelector(".retailer-page-container").innerHTML+="<a class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p><div class='circle-div'><img class='fwd-btn' src='back.svg'/></div></div></div></a>";
   fetchWebsite(element_string.retailerId);
 };
 

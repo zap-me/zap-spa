@@ -304,14 +304,15 @@ p {
   width: 70vw;
   height: 4vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   border-radius: 25vh;
 }
 
 .shop-now-div > p {
   color: white;
-  font-size: 2vh;
+  font-size: 2.5vh;
+  margin-left: 28vw;
 }
 
 .shop-now-container {
@@ -325,4 +326,20 @@ p {
 
 a {
   text-decoration: none;
+}
+
+.circle-div {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.7vh;
+  border-radius: 50%; 
+  width: 2.7vh;
+  margin-left: 18vw;
+}
+
+.fwd-btn {
+  transform: scaleX(-1);
+  height: 2vh;
 }
