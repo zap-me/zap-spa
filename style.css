@@ -210,7 +210,7 @@ p {
   margin-right: 5vw;
 }
 
-.viewall-page-container {
+.viewall-page-container , .grid-holder {
   display:flex;
   flex-direction: column;
   height: 100vh;
@@ -273,10 +273,9 @@ p {
 }
 
 .viewall-categories-bar {
-  height: 25vh;
+  height: 10vh;
   display: flex;
   margin-top: 2.5vh;
-  margin-bottom: 2.5vh;
 }
 
 .category-rounded-container {

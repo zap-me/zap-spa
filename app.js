@@ -110,6 +110,39 @@ const goBack  = function() {
   addSwiper();
 };
 
+const addCategorySwiper = function() {
+  console.log("called");
+  var categorySwiper = new Swiper('.viewall-categories-bar', {
+    slidesPerView: 3,
+    spaceBetween: 15,
+    freeMode: true,
+  });
+};
+
+//WIP
+const removeAndUpdateSlider = function(currentId, newId) {
+  //updates which category is selected
+  document.querySelector(".grid-holder").innerHTML="";
+  var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
+  var sortedCategories = allCategoryItems.filter(element => element.categoryId == newId);
+  if (currentId != false) {
+    var oldCategoryDiv = document.querySelector("#slider-id-" + currentId);
+    oldCategoryDiv.style.borderColor="grey";
+    oldCategoryDiv.childNodes[0].style.color= "grey";
+  }
+  var selectedCategoryDiv = document.querySelector("#slider-id-" + newId);
+  selectedCategoryDiv.style.borderColor= "#3e6fc1";
+  selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
+  sortedCategories.forEach(
+    function(retailer) {
+      //document.querySelector(".viewall-categories-bar").innerHTML+="";
+      document.querySelector(".grid-holder").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/><div class='viewall-text-container'><p class='category-viewall-title'>" + retailer.category.toUpperCase() + "</p></div><div class='viewall-text-container'><p class='viewall-retailer-name'>" + retailer.retailer + "<p></div>" + (retailer.description ? "<div class='viewall-text-container'><p class='viewall-retailer-description'>" + retailer.description  + "</p></div>" : "") + "<div class='viewall-text-container'><div class='shop-now-btn'><p class='shop-now-text'>Shop now</p></div></div></div>";
+    }
+  );
+
+  addCategorySwiper();
+};
+
 const viewAll = function(categoryId) {
   var categoriesInBar = [];
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
@@ -124,39 +157,17 @@ const viewAll = function(categoryId) {
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='viewAll(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
+	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + categoryId + "," + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
 	categoriesInBar.push(retailer.category);
       }
     }
 
   );
-  var selectedCategoryDiv = document.querySelector("#slider-id-" + categoryId);
-  selectedCategoryDiv.style.borderColor= "#3e6fc1";
-  selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
-  sortedCategories.forEach(
-    function(retailer) {
-      document.querySelector(".viewall-categories-bar").innerHTML+="";
-      document.querySelector(".viewall-page-container").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/><div class='viewall-text-container'><p class='category-viewall-title'>" + retailer.category.toUpperCase() + "</p></div><div class='viewall-text-container'><p class='viewall-retailer-name'>" + retailer.retailer + "<p></div>" + (retailer.description ? "<div class='viewall-text-container'><p class='viewall-retailer-description'>" + retailer.description  + "</p></div>" : "") + "<div class='viewall-text-container'><div class='shop-now-btn'><p class='shop-now-text'>Shop now</p></div></div></div>";
-    }
-  );
-const addCategorySwiper = function() {
-  console.log("called");
-  var categorySwiper = new Swiper('.viewall-categories-bar', {
-    slidesPerView: 3,
-    spaceBetween: 15,
-    freeMode: true,
-  });
-  };
-  addCategorySwiper();
+  document.querySelector(".viewall-page-container").innerHTML+="<div class='grid-holder'></div>";
+  removeAndUpdateSlider(false, categoryId);
 };
 
 
-//WIP
-const removeAndUpdateSlider = function(currentId, newId, sortedCategories) {
-  document.querySelector("#slider-id-" + currentId).style.borderColor="grey";
-  document.querySelector("slider-id-" + newId).style.borderColor="#3e6fc1";
-  
-}
 
 goToHomePage();
 clearCacheBtn();
