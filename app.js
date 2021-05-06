@@ -120,13 +120,14 @@ const addCategorySwiper = function() {
 };
 
 //WIP
-const removeAndUpdateSlider = function(currentId, newId) {
+const removeAndUpdateSlider = function(newId) {
   //updates which category is selected
+  var lastPressed=localStorage.getItem("lastPressed");
   document.querySelector(".grid-holder").innerHTML="";
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
   var sortedCategories = allCategoryItems.filter(element => element.categoryId == newId);
-  if (currentId != false) {
-    var oldCategoryDiv = document.querySelector("#slider-id-" + currentId);
+  if (newId != lastPressed) {
+    var oldCategoryDiv = document.querySelector("#slider-id-" + lastPressed);
     oldCategoryDiv.style.borderColor="grey";
     oldCategoryDiv.childNodes[0].style.color= "grey";
   }
@@ -139,6 +140,7 @@ const removeAndUpdateSlider = function(currentId, newId) {
       document.querySelector(".grid-holder").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/><div class='viewall-text-container'><p class='category-viewall-title'>" + retailer.category.toUpperCase() + "</p></div><div class='viewall-text-container'><p class='viewall-retailer-name'>" + retailer.retailer + "<p></div>" + (retailer.description ? "<div class='viewall-text-container'><p class='viewall-retailer-description'>" + retailer.description  + "</p></div>" : "") + "<div class='viewall-text-container'><div class='shop-now-btn'><p class='shop-now-text'>Shop now</p></div></div></div>";
     }
   );
+  localStorage.setItem("lastPressed", newId);
 
   addCategorySwiper();
 };
@@ -147,6 +149,7 @@ const viewAll = function(categoryId) {
   var categoriesInBar = [];
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
   var sortedCategories = allCategoryItems.filter(element => element.categoryId == categoryId);
+  localStorage.setItem("lastPressed", categoryId);
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
   document.querySelector(".body-container").innerHTML+="<div class='viewall-page-container'></div>";
@@ -157,14 +160,14 @@ const viewAll = function(categoryId) {
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + categoryId + "," + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
+	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
 	categoriesInBar.push(retailer.category);
       }
     }
 
   );
   document.querySelector(".viewall-page-container").innerHTML+="<div class='grid-holder'></div>";
-  removeAndUpdateSlider(false, categoryId);
+  removeAndUpdateSlider(categoryId);
 };
 
 
