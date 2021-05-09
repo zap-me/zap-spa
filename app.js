@@ -1,3 +1,45 @@
+var latitude;
+var longitude;
+
+const findProximity = function(lat1, lon1, lat2, lon2) {
+  console.log(lat1);
+  console.log(Math.PI/180);
+  const R = 6371e3; // metres
+  const delta1  = lat1 * Math.PI/180; // φ, λ in radians
+  console.log(delta1);
+  const φ2 = lat2 * Math.PI/180;
+  const Δφ = (lat2-lat1) * Math.PI/180;
+  const Δλ = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+	    Math.cos(delta1) * Math.cos(φ2) *
+	    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const d = R * c; // in metres
+  return d;
+}
+
+const geoError = function() {
+  console.log("geolocation error'd");
+}
+
+const geoSuccess = function(position) {
+  console.log("geo success called");
+  latitude = position.coords.latitude;
+  console.log(latitude);
+  longitude = position.coords.longitude;
+  
+};
+
+const grabUserLocation = function() {
+  console.log("grabUserLocation called");
+  if (navigator.geolocation) {
+    console.log("if met");
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+  } else {
+    console.log("not met");
+  }
+};
+
 const fetchData = function(endpoint, callback) {
     fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/" + endpoint,
         {
@@ -8,6 +50,22 @@ const fetchData = function(endpoint, callback) {
         }
     ).then(response => response.json()).then(callback);
 }
+
+const storesWithinXMeters= function(maxDistance, latitude, longitude) {
+  console.log("latititude is ", latitude);
+  console.log("called storesWithinXMeters");
+  fetchData('getstores/', function(response) {
+      console.log(response.data);
+       response.data.forEach(
+         (element) => {
+           if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
+             console.log(element.name);
+           };
+         }
+       );
+    }
+  );
+};
 
 const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
@@ -21,6 +79,7 @@ const goToHomePage = function() {
         document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
         fetchData("getviewall", function(data) {
             document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
+            addPromos();
             Object.entries(data).forEach(function(element) {
                 appendData(element);
             });
@@ -56,6 +115,22 @@ const fetchWebsite = async function(retailerId) {
 const scrollToTop = function() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+};
+
+const addPromos = function() {
+  document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
+  document.querySelector(".promos-container").innerHTML+="<p>Latest Promotions</p>";
+  document.querySelector(".promos-container").innerHTML+="<div class='swiper-container' id='swiper-promos-container' style='margin: 5vw;'><div class='swiper-wrapper' id='promos-wrapper'></div></div>";
+  fetchData('getpromotions/', function(response) {
+       response.data.content.forEach(
+         (element) => {
+           console.log(element.desc);
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' /></div>";
+         }
+       );
+    addSwiper();
+    localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
+    });
 };
 
 const iterateThruAndAppend = function(items) {
@@ -126,8 +201,7 @@ const removeAndUpdateSlider = function(newId) {
   document.querySelector(".grid-holder").innerHTML="";
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
   var sortedCategories = allCategoryItems.filter(element => element.categoryId == newId);
-  if (newId != lastPressed) {
-    var oldCategoryDiv = document.querySelector("#slider-id-" + lastPressed);
+  if (newId != lastPressed) { var oldCategoryDiv = document.querySelector("#slider-id-" + lastPressed);
     oldCategoryDiv.style.borderColor="grey";
     oldCategoryDiv.childNodes[0].style.color= "grey";
   }
@@ -171,6 +245,9 @@ const viewAll = function(categoryId) {
 };
 
 
-
 goToHomePage();
 clearCacheBtn();
+//grabUserLocation();
+//console.log(latitude);
+//console.log(longitude);
+//storesWithinXMeters(20000, latitude, longitude);

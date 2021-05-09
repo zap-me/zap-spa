@@ -383,3 +383,16 @@ a {
 .float-icon{
   margin-top: 22px;
 }
+
+.promos-container {
+  height: 35vh;
+  width: 100vw;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.promos-container > p {
+  font-size: 2.5vh;
+  margin-left: 5vw;
+}
