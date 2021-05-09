@@ -366,22 +366,39 @@ a {
   font-size: 1.5vh;
 }
 
-.float-link{
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
-  background-color: #0C9;
+.float-btn {
+  width: 4vh;
+  height: 4vh;
+  background-color: rgb(62, 111, 193);
   color: #FFF;
-  border-radius: 50px;
-  text-align: center;
+  border-radius: 4vh;
   box-shadow: 2px 2px 3px #999;
   z-index: 99;
 }
 
+.float-tl {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.inline-tl {
+  display: table;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.float-br {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
 .float-icon{
-  margin-top: 22px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .promos-container {

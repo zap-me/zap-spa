@@ -159,12 +159,18 @@ const iterateThruAndAppend = function(items) {
 const makePage = function(element_string) {
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
-  document.querySelector(".body-container").innerHTML+="<div class='retailer-page-container'></div>";
-  document.querySelector(".retailer-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
-  document.querySelector(".retailer-page-container").innerHTML+="<img class='page-img' src='" + element_string.image.uri + "' />";
-  document.querySelector(".retailer-page-container").innerHTML+="<dic class='container-card'></div>";
-  document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='category-title' onclick='viewAll(" + element_string.categoryId + ");'>" + element_string.category.toUpperCase() + "</p></div>";
-  document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='retailer-title'>" + element_string.label + "</p></div>";
+  document.querySelector(".body-container").innerHTML+=`
+<div class='retailer-page-container'>
+  <a id="back" href="#" onclick="goBack()" class="float-btn float-tl">
+    <i class="fa fa-angle-left float-icon"></i>
+  </a>
+  <img class='page-img' src='${element_string.image.uri}' />
+  <dic class='container-card'>
+    <div class='title-holder'><p class='category-title' onclick='viewAll(${element_string.categoryId});'>${element_string.category.toUpperCase()}</p></div>
+    <div class='title-holder' ><p class='retailer-title'>${element_string.label}</p></div>
+  </div>
+</div>
+`;  
   if (element_string.description) {
     document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
   }
@@ -226,11 +232,16 @@ const viewAll = function(categoryId) {
   localStorage.setItem("lastPressed", categoryId);
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
-  document.querySelector(".body-container").innerHTML+="<div class='viewall-page-container'></div>";
-  document.querySelector(".viewall-page-container").innerHTML+="<div class='header-navbar'><div class='back-img-container' onclick='goBack();' ><img class='back-img' src='back.svg'  /></div></div>";
-  document.querySelector(".viewall-page-container").innerHTML+="<div class='viewall-categories-bar'></div>";
-  document.querySelector(".viewall-categories-bar").innerHTML="<div class='swiper-wrapper'></div>";
-
+  document.querySelector(".body-container").innerHTML+=`
+<div class='viewall-page-container'>
+  <div class='viewall-categories-bar'>
+    <a id="back" href="#" onclick="goBack()" class="float-btn inline-tl">
+        <i class="fa fa-angle-left float-icon"></i>
+    </a>
+    <div class='swiper-wrapper'></div>
+  </div>
+</div>
+`;
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
