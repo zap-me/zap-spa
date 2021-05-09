@@ -90,9 +90,9 @@ const goToHomePage = function() {
     }
 };
 
-const addSwiper = function() {
+const addSwiper = function(className, numSlides, numSpace) {
   console.log("called");
-  var swiper = new Swiper('.swiper-container', {
+  var swiper = new Swiper(className, {
     slidesPerView: 2,
     spaceBetween: 35,
     freeMode: true,
@@ -120,15 +120,15 @@ const scrollToTop = function() {
 const addPromos = function() {
   document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
   document.querySelector(".promos-container").innerHTML+="<p>Latest Promotions</p>";
-  document.querySelector(".promos-container").innerHTML+="<div class='swiper-container' id='swiper-promos-container' style='margin: 5vw;'><div class='swiper-wrapper' id='promos-wrapper'></div></div>";
+  document.querySelector(".promos-container").innerHTML+="<div class='swiper-promos-container' style='margin: 5vw;'><div class='swiper-wrapper' id='promos-wrapper'></div></div>";
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' /></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "));'/></div>";
          }
        );
-    addSwiper();
+    addSwiper('.swiper-promos-container' ,2 ,35);
     localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
@@ -152,11 +152,12 @@ const iterateThruAndAppend = function(items) {
   
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper();
+  addSwiper('.swiper-container', 2, 35);
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
 const makePage = function(element_string) {
+  var element_string = JSON.parse(element_string);
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
   document.querySelector(".body-container").innerHTML+=`
@@ -188,7 +189,8 @@ const goBack  = function() {
   document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper();
+  addSwiper('.swiper-container', 2, 35);
+  addSwiper('.swiper-promos-container', 2, 35);
 };
 
 const addCategorySwiper = function() {
@@ -253,6 +255,22 @@ const viewAll = function(categoryId) {
   );
   document.querySelector(".viewall-page-container").innerHTML+="<div class='grid-holder'></div>";
   removeAndUpdateSlider(categoryId);
+};
+
+const getElementFromId = function(retailerId) {
+  var arrayPosition = 0;
+  var foundElement = false;
+  var elementsArray = JSON.parse(localStorage.getItem("sortedCategories"));
+  console.log("elements Array is ",elementsArray);
+  var elementToBeReturned;
+  while(!foundElement) {
+    if (elementsArray[arrayPosition].retailerId == retailerId) {
+      foundElement = true;
+      return JSON.stringify(elementsArray[arrayPosition]);
+    } else {
+      arrayPosition++;
+    }
+  };
 };
 
 
