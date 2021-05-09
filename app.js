@@ -125,7 +125,7 @@ const addPromos = function() {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "));'/></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'/></div>";
          }
        );
     addSwiper('.swiper-promos-container' ,2 ,35);
@@ -146,7 +146,7 @@ const iterateThruAndAppend = function(items) {
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
-    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ");' /></div>";
+    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ", false);' /></div>";
   }
   );
   
@@ -156,8 +156,10 @@ const iterateThruAndAppend = function(items) {
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
-const makePage = function(element_string) {
-  var element_string = JSON.parse(element_string);
+const makePage = function(element_string, promoClicked) {
+  if(promoClicked) {
+    element_string = JSON.parse(element_string);
+  }
   document.querySelector(".body-container").innerHTML="";
   scrollToTop();
   document.querySelector(".body-container").innerHTML+=`
