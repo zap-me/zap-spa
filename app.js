@@ -90,12 +90,13 @@ const goToHomePage = function() {
     }
 };
 
-const addSwiper = function(className, numSlides, numSpace) {
+const addSwiper = function(className, numSlides, numSpace, autoPlay) {
   console.log("called");
   var swiper = new Swiper(className, {
     slidesPerView: numSlides,
     spaceBetween: numSpace,
     freeMode: true,
+    autoplay: (autoPlay ? {autoplay: 250} : null ),
   });
 };
 
@@ -128,7 +129,7 @@ const addPromos = function() {
            document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 20vh; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
-    addSwiper('.swiper-promos-container' ,1 ,35);
+    addSwiper('.swiper-promos-container' ,1 ,35, true);
     localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
@@ -152,7 +153,7 @@ const iterateThruAndAppend = function(items) {
   
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper('.swiper-container', 2, 35);
+  addSwiper('.swiper-container', 2, 35, false);
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
@@ -191,8 +192,8 @@ const goBack  = function() {
   document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper('.swiper-container', 2, 35);
-  addSwiper('.swiper-promos-container', 1, 35);
+  addSwiper('.swiper-container', 2, 35, false);
+  addSwiper('.swiper-promos-container', 1, 35, true);
 };
 
 const addCategorySwiper = function() {
