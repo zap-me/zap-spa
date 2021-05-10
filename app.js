@@ -3,11 +3,8 @@ var longitude;
 
 //function to assess distance between locations
 const findProximity = function(lat1, lon1, lat2, lon2) {
-  console.log(lat1);
-  console.log(Math.PI/180);
   const R = 6371e3; // metres
   const delta1  = lat1 * Math.PI/180; // φ, λ in radians
-  console.log(delta1);
   const φ2 = lat2 * Math.PI/180;
   const Δφ = (lat2-lat1) * Math.PI/180;
   const Δλ = (lon2-lon1) * Math.PI/180;
@@ -27,13 +24,13 @@ const geoError = function() {
 const geoSuccess = function(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
-  storesWithinXMeters(2000, latitude, longitude);
+  storesWithinXMeters(10000, latitude, longitude);
   
 };
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
   document.querySelector(".body-container").innerHTML+=`
-    <div class='.swiper-near-me-container' style='margin: 5vw;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
+    <div class='swiper-near-me-container' style='margin: 5vw; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
   `;
   fetchData('getstores/', function(response) {
       console.log(response.data);
@@ -108,6 +105,7 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
     spaceBetween: numSpace,
     freeMode: true,
   });
+  console.log(`added ${className}`);
 };
 
 //returns URL string
