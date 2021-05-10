@@ -125,7 +125,7 @@ const addPromos = function() {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' style='width:90vw; height: 35vh;' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'/></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 20vh; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
     addSwiper('.swiper-promos-container' ,1 ,35);

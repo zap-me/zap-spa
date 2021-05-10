@@ -403,7 +403,7 @@ a {
 }
 
 .promos-container {
-  height: 35vh;
+  height: 40vh;
   width: 100vw;
   background-color: grey;
   display: flex;
@@ -416,7 +416,32 @@ a {
 }
 
 .swiper-promos-container {
-  height: 25vh;
+  height: 40vh;
   display: flex;
   overflow-x: hidden;
+}
+
+.promo-box {
+  width: 90vw;
+  height: 25.5vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+}
+
+.promo-box-logo {
+  z-index: 999;
+  position: relative;
+  left: 5vw;
+  bottom: 14vh;
+  object-fit: cover;
+  height: 13vh;
+  width: 13vh;
+  border-radius: 7%;
+  border-style: solid;
+  border-color: white;
+  border-width: 0.33vh;
+  box-shadow: 0px 0px 0px 0px;
 }
