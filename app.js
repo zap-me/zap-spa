@@ -1,6 +1,7 @@
 var latitude;
 var longitude;
 
+//function to assess distance between locations
 const findProximity = function(lat1, lon1, lat2, lon2) {
   console.log(lat1);
   console.log(Math.PI/180);
@@ -22,42 +23,48 @@ const geoError = function() {
   console.log("geolocation error'd");
 }
 
+//function called when user has enabled location
 const geoSuccess = function(position) {
-  console.log("geo success called");
   latitude = position.coords.latitude;
-  console.log(latitude);
   longitude = position.coords.longitude;
-  console.log(longitude);
   storesWithinXMeters(2000, latitude, longitude);
   
 };
-
+//builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
-  console.log("latititude is ", latitude);
-  console.log("called storesWithinXMeters");
+  document.querySelector(".body-container").innerHTML+=`
+    <div class='.swiper-near-me-container' style='margin: 5vw;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
+  `;
   fetchData('getstores/', function(response) {
       console.log(response.data);
        response.data.forEach(
          (element) => {
            if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
-             console.log(`${element.name} is close to you`);
+             document.querySelector("#near-me-wrapper").innerHTML+=`
+               <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" /></div>
+             `;
            };
          }
        );
+      const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+      observer.observe();
+      addSwiper('.swiper-container', 2, 35, false);
+      addSwiper('.swiper-promos-container', 1, 35, true);
+      addSwiper('.swiper-near-me-container', 2, 35, false);
     }
   );
 };
 
+//asks for permission to grab user location
 const grabUserLocation = function() {
-  console.log("grabUserLocation called");
   if (navigator.geolocation) {
-    console.log("if met");
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
   } else {
     console.log("not met");
   }
 };
 
+//requests function
 const fetchData = function(endpoint, callback) {
     fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/" + endpoint,
         {
@@ -69,7 +76,7 @@ const fetchData = function(endpoint, callback) {
     ).then(response => response.json()).then(callback);
 }
 
-
+//manual clear localStorage button
 const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
         localStorage.clear();
@@ -82,6 +89,7 @@ const goToHomePage = function() {
         document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
         fetchData("getviewall", function(data) {
             document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
+            //adds promos slider
             addPromos();
             Object.entries(data).forEach(function(element) {
                 appendData(element);
@@ -300,4 +308,5 @@ const getElementFromId = function(retailerId) {
 
 goToHomePage();
 clearCacheBtn();
+//grabs user location then builds "Near Me"
 grabUserLocation();
