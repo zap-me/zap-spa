@@ -96,19 +96,38 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
     slidesPerView: numSlides,
     spaceBetween: numSpace,
     freeMode: true,
-    autoplay: (autoPlay ? {autoplay: 250} : null ),
   });
 };
 
 //returns URL string
 const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
+      console.log(data.store.monday);
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
       if (data.store.address) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
       }
       if (data.store.phone || data.store.email) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
+      }
+      document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
+      data.store.hours.forEach(
+        function(item) {
+          document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+        }
+      );
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      for (i = 0; i < coll.length; i++) {
+	coll[i].addEventListener("click", function() {
+	  this.classList.toggle("active");
+	  var content = this.nextElementSibling;
+	  if (content.style.display === "block") {
+	    content.style.display = "none";
+	  } else {
+	    content.style.display = "block";
+	  }
+	});
       }
   });
 };

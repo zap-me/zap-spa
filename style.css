@@ -431,6 +431,8 @@ a {
   
 }
 
+/* collabsible */
+
 .promo-box-logo {
   z-index: 999;
   position: relative;
@@ -444,4 +446,40 @@ a {
   border-color: white;
   border-width: 0.33vh;
   box-shadow: 0px 0px 0px 0px;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.hours-title {
+  margin-left: 4vw;
+  font-size: 1.5vh;
 }
