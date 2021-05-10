@@ -93,8 +93,8 @@ const goToHomePage = function() {
 const addSwiper = function(className, numSlides, numSpace) {
   console.log("called");
   var swiper = new Swiper(className, {
-    slidesPerView: 2,
-    spaceBetween: 35,
+    slidesPerView: numSlides,
+    spaceBetween: numSpace,
     freeMode: true,
   });
 };
@@ -125,10 +125,10 @@ const addPromos = function() {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'/></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' style='width:90vw; height: 35vh;' src='" + element.banner.uri + "' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'/></div>";
          }
        );
-    addSwiper('.swiper-promos-container' ,2 ,35);
+    addSwiper('.swiper-promos-container' ,1 ,35);
     localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
