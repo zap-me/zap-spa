@@ -192,7 +192,7 @@ const goBack  = function() {
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addSwiper('.swiper-container', 2, 35);
-  addSwiper('.swiper-promos-container', 2, 35);
+  addSwiper('.swiper-promos-container', 1, 35);
 };
 
 const addCategorySwiper = function() {
