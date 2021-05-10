@@ -27,7 +27,25 @@ const geoSuccess = function(position) {
   latitude = position.coords.latitude;
   console.log(latitude);
   longitude = position.coords.longitude;
+  console.log(longitude);
+  storesWithinXMeters(2000, latitude, longitude);
   
+};
+
+const storesWithinXMeters= function(maxDistance, latitude, longitude) {
+  console.log("latititude is ", latitude);
+  console.log("called storesWithinXMeters");
+  fetchData('getstores/', function(response) {
+      console.log(response.data);
+       response.data.forEach(
+         (element) => {
+           if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
+             console.log(`${element.name} is close to you`);
+           };
+         }
+       );
+    }
+  );
 };
 
 const grabUserLocation = function() {
@@ -51,21 +69,6 @@ const fetchData = function(endpoint, callback) {
     ).then(response => response.json()).then(callback);
 }
 
-const storesWithinXMeters= function(maxDistance, latitude, longitude) {
-  console.log("latititude is ", latitude);
-  console.log("called storesWithinXMeters");
-  fetchData('getstores/', function(response) {
-      console.log(response.data);
-       response.data.forEach(
-         (element) => {
-           if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
-             console.log(element.name);
-           };
-         }
-       );
-    }
-  );
-};
 
 const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
@@ -121,10 +124,10 @@ const fetchWebsite = async function(retailerId) {
 	coll[i].addEventListener("click", function() {
 	  this.classList.toggle("active");
 	  var content = this.nextElementSibling;
-	  if (content.style.display === "block") {
+	  if (content.style.display === "flex") {
 	    content.style.display = "none";
 	  } else {
-	    content.style.display = "block";
+	    content.style.display = "flex";
 	  }
 	});
       }
@@ -297,7 +300,4 @@ const getElementFromId = function(retailerId) {
 
 goToHomePage();
 clearCacheBtn();
-//grabUserLocation();
-//console.log(latitude);
-//console.log(longitude);
-//storesWithinXMeters(20000, latitude, longitude);
+grabUserLocation();
