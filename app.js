@@ -102,7 +102,6 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
 //returns URL string
 const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
-      console.log(data.store.monday);
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
       if (data.store.address) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
