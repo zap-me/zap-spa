@@ -197,10 +197,25 @@ const makePage = function(element_string, promoClicked) {
 </div>
 `;  
   if (element_string.description) {
-    document.querySelector(".container-card").innerHTML+="<div class='title-holder' ><p class='description'>" + element_string.description + "</p></div>";
+    document.querySelector(".container-card").innerHTML+=`
+<div class='title-holder'>
+  <p class='description'>${element_string.description}</p>
+</div>
+`;
   }
-  document.querySelector(".retailer-page-container").innerHTML+="<a target='_blank' class='shop-link-" + element_string.retailerId + "'/><div class='shop-now-container'><div class='shop-now-div'><p>shop</p><div class='circle-div'><img class='fwd-btn' src='back.svg'/></div></div></div></a>";
-  document.querySelector(".retailer-page-container").innerHTML+="<div class='info-div-holder'></div>";
+  document.querySelector(".retailer-page-container").innerHTML+=`
+<div class='shop-now-container'>
+  <a target='_blank' class='shop-link-${element_string.retailerId}'/>
+    <div class='shop-now-div'>
+      <p>shop now</p>
+      <div class='circle-div'>
+        <i class="fa fa-arrow-right fa-button"></i>
+      </div>
+    </div>
+  </a>
+</div>
+<div class='info-div-holder'></div>
+`;
   fetchWebsite(element_string.retailerId);
 };
 
