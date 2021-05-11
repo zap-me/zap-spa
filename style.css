@@ -269,7 +269,8 @@ p {
 .shop-now-text {
   color: white;
   font-size: 1.4vh;
-
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .viewall-categories-bar {
@@ -339,6 +340,12 @@ a {
   border-radius: 50%; 
   width: 2.7vh;
   margin-right: 0.5vh;
+}
+
+.circle-div-hidden {
+  visibility: hidden;
+  margin-right: 0vh;
+  margin-left: 0.5vh;
 }
 
 .fwd-btn {
