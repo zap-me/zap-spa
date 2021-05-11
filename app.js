@@ -33,7 +33,7 @@ const geoSuccess = function(position) {
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
   document.querySelector(".body-container").innerHTML+=`
-    <div class='category-name-container'><p class='category-para'>Near Me</p></div>
+    <div class='category-name-container'><p class='category-para tall-size'>Near Me</p></div>
     <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
   `;
   fetchData('getstores/', function(response) {
@@ -152,8 +152,9 @@ const scrollToTop = function() {
 };
 
 const addPromos = function() {
+  document.querySelector(".body-container").innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
   document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
-  document.querySelector(".promos-container").innerHTML+="<p>Latest Promotions</p>";
+  document.querySelector(".promos-container").innerHTML+="<p class='tall-size'>Latest Promotions</p>";
   document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN};'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
@@ -175,11 +176,12 @@ const iterateThruAndAppend = function(items) {
   function(element) {
     element_stringified = JSON.stringify(element);
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
-      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
+      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para tall-size'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
       document.querySelector(".body-container").innerHTML+=`
 <div class='swiper-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; margin-right: ${SWIPER_CONTAINER_MARGIN}; width: 100vw;'>
   <div class='swiper-wrapper' id='category-${element.categoryId}'></div>
-</div>`;
+</div>
+<div class='grey-space-div'></div>`;
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
