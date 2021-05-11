@@ -33,6 +33,7 @@ const geoSuccess = function(position) {
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
   document.querySelector(".body-container").innerHTML+=`
+    <div class='category-name-container'><p class='category-para'>Near Me</p></div>
     <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
   `;
   fetchData('getstores/', function(response) {
