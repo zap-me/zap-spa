@@ -170,7 +170,7 @@ const iterateThruAndAppend = function(items) {
     element_stringified = JSON.stringify(element);
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
       document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
-      document.querySelector(".body-container").innerHTML+="<div class='swiper-container' style='margin: 5vw;'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
+      document.querySelector(".body-container").innerHTML+="<div class='swiper-container' style='margin-left: 5vw; margin-right: 5vw; width: 100vw;'> <div class='swiper-wrapper' id='category-" + element.categoryId + "'></div></div>";
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
