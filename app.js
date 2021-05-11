@@ -211,14 +211,14 @@ const makePage = function(element_string, promoClicked) {
   }
   document.querySelector(".retailer-page-container").innerHTML+=`
 <div class='shop-now-container'>
-  <a target='_blank' class='shop-link-${element_string.retailerId}'/>
-    <div class='shop-now-div'>
-      <p>shop now</p>
-      <div class='circle-div'>
-        <i class="fa fa-arrow-right fa-button"></i>
-      </div>
+  <div class='shop-now-div'>
+    <div class='circle-div circle-div-hidden'>
     </div>
-  </a>
+    <p>shop now</p>
+    <div class='circle-div'>
+      <i class="fa fa-arrow-right fa-button"></i>
+    </div>
+  </div>
 </div>
 <div class='info-div-holder'></div>
 `;
@@ -263,8 +263,30 @@ const removeAndUpdateSlider = function(newId) {
   selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
   sortedCategories.forEach(
     function(retailer) {
-      //document.querySelector(".viewall-categories-bar").innerHTML+="";
-      document.querySelector(".grid-holder").innerHTML+="<div class='viewall-retailer-card'><img class='retailer-card-img' src='" + retailer.image.uri + "'/><div class='viewall-text-container'><p class='category-viewall-title'>" + retailer.category.toUpperCase() + "</p></div><div class='viewall-text-container'><p class='viewall-retailer-name'>" + retailer.retailer + "<p></div>" + (retailer.description ? "<div class='viewall-text-container'><p class='viewall-retailer-description'>" + retailer.description  + "</p></div>" : "") + "<div class='viewall-text-container'><div class='shop-now-btn'><p class='shop-now-text'>Shop now</p></div></div></div>";
+      var retailerDesc = retailer.description ? `<div class='viewall-text-container'><p class='viewall-retailer-description'>${retailer.description}</p></div>` : "";
+      document.querySelector(".grid-holder").innerHTML+=`
+<div class='viewall-retailer-card'>
+    <img class='retailer-card-img' src='${retailer.image.uri}'/>
+    <div class='viewall-text-container'>
+        <p class='category-viewall-title'>${retailer.category.toUpperCase()}</p>
+    </div>
+    <div class='viewall-text-container'>
+        <p class='viewall-retailer-name'>${retailer.retailer}<p>
+    </div>
+    ${retailerDesc}
+    <div class='viewall-text-container'>
+      <a target='_blank' class='shop-link-${retailer.retailerId}'/>
+        <div class='shop-now-btn'>
+          <div class='circle-div circle-div-hidden'></div>
+          <p class='shop-now-text'>shop now</p>
+          <div class='circle-div'>
+            <i class="fa fa-arrow-right fa-button"></i>
+          </div>
+        </div>
+      </a>
+    </div>
+  </a>
+</div>`;
     }
   );
   localStorage.setItem("lastPressed", newId);
