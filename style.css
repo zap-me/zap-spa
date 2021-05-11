@@ -22,8 +22,8 @@ p {
 }
 
 .catalog-img {
-  width: 20vh;
-  height: 20vh;
+  width: 42vw;
+  height: 42vw;
   box-shadow: 0 0 0 1px black;
   margin-bottom: 5vh;
   border-radius: 6.5%;
