@@ -86,7 +86,9 @@ const clearCacheBtn = function() {
 }
 
 const goToHomePage = function() {
-    if (localStorage.getItem("bodyContainerInnerHtml") === null) {
+    var current = new Date();
+    if ((localStorage.getItem("bodyContainerInnerHtml") === null)  || current.getHours() == localStorage.getItem("timeSet") - 1 ) {
+        localStorage.setItem("timeSet", current.getHours());
         document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
         fetchData("getviewall", function(data) {
             document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
