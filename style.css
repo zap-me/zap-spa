@@ -110,7 +110,6 @@ p {
 .swiper-container {
   height: 24vh;
   display: flex;
-  width: 200vw;
 }
 
 .swiper-slide {
@@ -523,4 +522,8 @@ a {
   width: 100vw;
   height: 3vh;
   background-color: #f5f5f5;
+}
+
+.category-svg {
+  margin-bottom: 4vh;
 }

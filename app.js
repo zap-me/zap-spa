@@ -263,7 +263,6 @@ const addCategorySwiper = function() {
 //WIP
 const removeAndUpdateSlider = function(newId) {
   //updates which category is selected
-  document.querySelector(".svg-holder-svg").setAttribute("src", findSvg(newId));
   console.log("called removeAndUpdateSlider");
   var lastPressed=localStorage.getItem("lastPressed");
   document.querySelector(".grid-holder").innerHTML="";
@@ -276,6 +275,8 @@ const removeAndUpdateSlider = function(newId) {
   var selectedCategoryDiv = document.querySelector("#slider-id-" + newId);
   selectedCategoryDiv.style.borderColor= "#3e6fc1";
   selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
+  document.querySelector(".grid-holder").innerHTML+=`<div class='svg-holder category-svg'><img class='svg-holder-svg' src='${findSvg(newId)}'/></div>`;
+  document.querySelector(".svg-holder-svg").setAttribute("src", findSvg(newId));
   sortedCategories.forEach(
     function(retailer) {
       var retailerDesc = retailer.description ? `<div class='viewall-text-container'><p class='viewall-retailer-description'>${retailer.description}</p></div>` : "";
@@ -370,7 +371,6 @@ const viewAll = function(categoryId) {
     </a>
     <div class='swiper-wrapper'></div>
   </div>
-  <div class='svg-holder'><img class='svg-holder-svg' src='${findSvg(categoryId)}'/></div>
 </div>
 `;
   allCategoryItems.forEach(
