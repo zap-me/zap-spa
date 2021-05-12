@@ -110,6 +110,7 @@ p {
 .swiper-container {
   height: 24vh;
   display: flex;
+  width: 200vw;
 }
 
 .swiper-slide {

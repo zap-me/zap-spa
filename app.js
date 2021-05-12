@@ -221,16 +221,18 @@ const makePage = function(element_string, promoClicked) {
 `;
   }
   document.querySelector(".retailer-page-container").innerHTML+=`
-<div class='shop-now-container'>
-  <div class='shop-now-div'>
-    <div class='circle-div circle-div-hidden'>
-    </div>
-    <p>shop now</p>
-    <div class='circle-div'>
-      <i class="fa fa-arrow-right fa-button"></i>
+<a target='_blank' class='shop-link-${element_string.retailerId}'/>
+  <div class='shop-now-container'>
+    <div class='shop-now-div'>
+      <div class='circle-div circle-div-hidden'>
+      </div>
+      <p>shop now</p>
+      <div class='circle-div'>
+	<i class="fa fa-arrow-right fa-button"></i>
+      </div>
     </div>
   </div>
-</div>
+</a>
 <div class='info-div-holder'></div>
 `;
   fetchWebsite(element_string.retailerId);
@@ -261,6 +263,8 @@ const addCategorySwiper = function() {
 //WIP
 const removeAndUpdateSlider = function(newId) {
   //updates which category is selected
+  document.querySelector(".svg-holder-svg").setAttribute("src", findSvg(newId));
+  console.log("called removeAndUpdateSlider");
   var lastPressed=localStorage.getItem("lastPressed");
   document.querySelector(".grid-holder").innerHTML="";
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
@@ -305,6 +309,52 @@ const removeAndUpdateSlider = function(newId) {
   addCategorySwiper();
 };
 
+const findSvg = function(categoryId) {
+  console.log("called findSvg");
+  switch(categoryId) {
+    case 13:
+      return "food.svg";
+      break;
+    
+    case 20: 
+      return "grocery.svg";
+      break;
+
+    case 2:
+      return "hair.svg";
+      break;
+
+    case 16:
+      return "gifts.svg";
+      break;
+
+    case 19:
+      return "fitness.svg";
+      break;
+
+    case 22:
+      return "services.svg";
+      break;
+
+    case 21:
+      return "tattoo.svg";
+      break;
+
+    case 23:
+      return "outdoors.svg";
+      break;
+
+    case 18:
+      return "mobile.svg";
+      break;
+
+    default:
+      return "places.svg";
+      break;
+
+  }
+};
+
 const viewAll = function(categoryId) {
   var categoriesInBar = [];
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
@@ -320,6 +370,7 @@ const viewAll = function(categoryId) {
     </a>
     <div class='swiper-wrapper'></div>
   </div>
+  <div class='svg-holder'><img class='svg-holder-svg' src='${findSvg(categoryId)}'/></div>
 </div>
 `;
   allCategoryItems.forEach(
