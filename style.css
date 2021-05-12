@@ -209,7 +209,15 @@ p {
   margin-right: 5vw;
 }
 
-.viewall-page-container , .grid-holder {
+.grid-holder {
+  display: block;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.viewall-page-container {
   display:flex;
   flex-direction: column;
   height: 100vh;
@@ -393,7 +401,7 @@ a {
 }
 
 .inline-tl {
-  display: table;
+  display: flex;
   margin-left: 20px;
   margin-right: 20px;
 }

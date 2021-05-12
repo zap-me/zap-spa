@@ -366,9 +366,11 @@ const viewAll = function(categoryId) {
   document.querySelector(".body-container").innerHTML+=`
 <div class='viewall-page-container'>
   <div class='viewall-categories-bar'>
-    <a id="back" href="#" onclick="goBack()" class="float-btn inline-tl">
+    <div class="inline-tl">
+      <a id="back" href="#" onclick="goBack()" class="float-btn">
         <i class="fa fa-angle-left float-icon"></i>
-    </a>
+      </a>
+    </div>
     <div class='swiper-wrapper'></div>
   </div>
 </div>
