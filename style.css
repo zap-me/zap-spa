@@ -22,8 +22,8 @@ p {
 }
 
 .catalog-img {
-  width: 42vw;
-  height: 42vw;
+  width: 40vw;
+  height: 40vw;
   box-shadow: 0 0 0 1px black;
   margin-bottom: 5vh;
   border-radius: 3%;
@@ -108,8 +108,7 @@ p {
 }
 
 .swiper-container {
-  height: 24vh;
-  display: flex;
+  width: 100%;
 }
 
 .swiper-slide {
@@ -433,7 +432,6 @@ a {
 
 .swiper-promos-container {
   height: 40vh;
-  display: flex;
   overflow-x: hidden;
 }
 
@@ -503,7 +501,6 @@ a {
 
 .swiper-near-me-container {
   height: 25vh;
-  display: flex;
   overflow-x: hidden;
 }
 
