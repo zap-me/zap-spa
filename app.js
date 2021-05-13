@@ -109,7 +109,7 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
   var swiper = new Swiper(className, {
     slidesPerView: numSlides,
     spaceBetween: numSpace,
-    freeMode: true,
+    autoplay: autoPlay,
   });
   console.log(`added ${className}`);
 };
