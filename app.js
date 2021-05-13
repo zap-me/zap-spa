@@ -317,7 +317,7 @@ const removeAndUpdateSlider = function(newId) {
       <a target='_blank' class='shop-link-${retailer.retailerId}'/>
         <div class='shop-now-btn'>
           <div class='circle-div circle-div-hidden'></div>
-          <p class='shop-now-text'>shop now</p>
+          <p class='shop-now-text' onclick='makePage(${JSON.stringify(retailer)});'>shop now</p>
           <div class='circle-div'>
             <i class="fa fa-arrow-right fa-button"></i>
           </div>
