@@ -49,7 +49,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
        );
       const observer = lozad(); // lazy loads elements with default selector as '.lozad'
       observer.observe();
-      addSwiper('.swiper-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
+      addShopsSwiper();
       addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
       addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
     }
@@ -103,6 +103,15 @@ const goToHomePage = function() {
         goBack();
     }
 };
+
+const addShopsSwiper = function() {
+  var marginLR = screen.width / 10; // ~10vw
+  var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 2.2,
+    slidesOffsetAfter: marginLR,
+    slidesOffsetBefore: marginLR,
+  });
+}
 
 const addSwiper = function(className, numSlides, numSpace, autoPlay) {
   console.log("called");
@@ -178,7 +187,7 @@ const iterateThruAndAppend = function(items) {
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
       document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para tall-size'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
       document.querySelector(".body-container").innerHTML+=`
-<div class='swiper-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; margin-right: ${SWIPER_CONTAINER_MARGIN}; width: 100vw;'>
+<div class='swiper-container'>
   <div class='swiper-wrapper' id='category-${element.categoryId}'></div>
 </div>
 <div class='grey-space-div'></div>`;
@@ -191,7 +200,7 @@ const iterateThruAndAppend = function(items) {
   
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper('.swiper-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
+  addShopsSwiper();
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
@@ -247,7 +256,7 @@ const goBack  = function() {
   document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
-  addSwiper('.swiper-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
+  addShopsSwiper();
   addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
 };
 
