@@ -4,6 +4,92 @@ const SWIPER_CONTAINER_MARGIN = '5vw';
 var latitude;
 var longitude;
 
+const fetchWebsite = async function(retailerId) {
+  fetchData("getdetail/" + retailerId, function(data) {
+      document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
+      if (data.store.address) {
+      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
+      }
+      if (data.store.phone || data.store.email) {
+      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
+      }
+      document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
+      data.store.hours.forEach(
+        function(item) {
+          document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+        }
+      );
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      for (i = 0; i < coll.length; i++) {
+	coll[i].addEventListener("click", function() {
+	  this.classList.toggle("active");
+	  var content = this.nextElementSibling;
+	  if (content.style.display === "flex") {
+	    content.style.display = "none";
+	  } else {
+	    content.style.display = "flex";
+	  }
+	});
+      }
+  });
+};
+
+const makePage = function(element_string, promoClicked) {
+  console.log(`element string is ${element_string}`);
+  if(promoClicked) {
+    element_string = JSON.parse(element_string);
+  }
+  document.querySelector(".body-container").innerHTML="";
+  scrollToTop();
+  document.querySelector(".body-container").innerHTML+=`
+<div class='retailer-page-container'>
+  <a id="back" href="#" onclick="goBack()" class="float-btn float-tl">
+    <i class="fa fa-angle-left float-icon"></i>
+  </a>
+  <img class='page-img' src='${element_string.image.uri}' />
+  <dic class='container-card'>
+    <div class='title-holder'><p class='category-title' onclick='viewAll(${element_string.categoryId});'>${element_string.category.toUpperCase()}</p></div>
+    <div class='title-holder' ><p class='retailer-title'>${element_string.label}</p></div>
+  </div>
+</div>
+`;  
+  if (element_string.description) {
+    document.querySelector(".container-card").innerHTML+=`
+<div class='title-holder'>
+  <p class='description'>${element_string.description}</p>
+</div>
+`;
+  }
+  document.querySelector(".retailer-page-container").innerHTML+=`
+<a target='_blank' class='shop-link-${element_string.retailerId}'/>
+  <div class='shop-now-container'>
+    <div class='shop-now-div'>
+      <div class='circle-div circle-div-hidden'>
+      </div>
+      <p>shop now</p>
+      <div class='circle-div'>
+	<i class="fa fa-arrow-right fa-button"></i>
+      </div>
+    </div>
+  </div>
+</a>
+<div class='info-div-holder'></div>
+`;
+  fetchWebsite(element_string.retailerId);
+};
+
+const makePageById = function(retailerId) {
+  var elementsArray = JSON.parse(localStorage.getItem("sortedCategories"));
+  elementsArray.forEach(
+    function(element) {
+      if(element.retailerId == retailerId) {
+        makePage(JSON.stringify(element), false);
+      } 
+    }
+  );
+};
+
 //function to assess distance between locations
 const findProximity = function(lat1, lon1, lat2, lon2) {
   const R = 6371e3; // metres
@@ -42,7 +128,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
          (element) => {
            if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
              document.querySelector("#near-me-wrapper").innerHTML+=`
-               <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" /></div>
+               <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
              `;
            };
          }
@@ -115,36 +201,6 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
 };
 
 //returns URL string
-const fetchWebsite = async function(retailerId) {
-  fetchData("getdetail/" + retailerId, function(data) {
-      document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
-      if (data.store.address) {
-      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
-      }
-      if (data.store.phone || data.store.email) {
-      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
-      }
-      document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
-      data.store.hours.forEach(
-        function(item) {
-          document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
-        }
-      );
-      var coll = document.getElementsByClassName("collapsible");
-      var i;
-      for (i = 0; i < coll.length; i++) {
-	coll[i].addEventListener("click", function() {
-	  this.classList.toggle("active");
-	  var content = this.nextElementSibling;
-	  if (content.style.display === "flex") {
-	    content.style.display = "none";
-	  } else {
-	    content.style.display = "flex";
-	  }
-	});
-      }
-  });
-};
 
 const scrollToTop = function() {
   document.body.scrollTop = 0; // For Safari
@@ -195,48 +251,6 @@ const iterateThruAndAppend = function(items) {
   localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
-const makePage = function(element_string, promoClicked) {
-  if(promoClicked) {
-    element_string = JSON.parse(element_string);
-  }
-  document.querySelector(".body-container").innerHTML="";
-  scrollToTop();
-  document.querySelector(".body-container").innerHTML+=`
-<div class='retailer-page-container'>
-  <a id="back" href="#" onclick="goBack()" class="float-btn float-tl">
-    <i class="fa fa-angle-left float-icon"></i>
-  </a>
-  <img class='page-img' src='${element_string.image.uri}' />
-  <dic class='container-card'>
-    <div class='title-holder'><p class='category-title' onclick='viewAll(${element_string.categoryId});'>${element_string.category.toUpperCase()}</p></div>
-    <div class='title-holder' ><p class='retailer-title'>${element_string.label}</p></div>
-  </div>
-</div>
-`;  
-  if (element_string.description) {
-    document.querySelector(".container-card").innerHTML+=`
-<div class='title-holder'>
-  <p class='description'>${element_string.description}</p>
-</div>
-`;
-  }
-  document.querySelector(".retailer-page-container").innerHTML+=`
-<a target='_blank' class='shop-link-${element_string.retailerId}'/>
-  <div class='shop-now-container'>
-    <div class='shop-now-div'>
-      <div class='circle-div circle-div-hidden'>
-      </div>
-      <p>shop now</p>
-      <div class='circle-div'>
-	<i class="fa fa-arrow-right fa-button"></i>
-      </div>
-    </div>
-  </div>
-</a>
-<div class='info-div-holder'></div>
-`;
-  fetchWebsite(element_string.retailerId);
-};
 
 const appendData = function(jsonItem) {
   iterateThruAndAppend(jsonItem[1]);
