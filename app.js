@@ -13,10 +13,18 @@ const fetchWebsite = async function(retailerId) {
       if (data.store.phone || data.store.email) {
       document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
       }
-      document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
+      var hoursTitleAdded;
       data.store.hours.forEach(
         function(item) {
-          document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+          //WORK ON THIS - IF NOT EQUALS NULL
+          if(item.hours != "") {
+            if (!hoursTitleAdded) {
+              document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
+              hoursTitleAdded = true;
+            }
+            document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+
+          }
         }
       );
       var coll = document.getElementsByClassName("collapsible");
