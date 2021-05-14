@@ -18,27 +18,23 @@ const fetchWebsite = async function(retailerId) {
         function(item) {
           if(item.hours != "") {
             if (!hoursTitleAdded) {
-              document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
+              document.querySelector(".info-div-holder").innerHTML+=`
+                <div class="wrap-collabsible">
+		  <input id="collapsible" class="toggle" type="checkbox">
+		  <label for="collapsible" class="lbl-toggle">Hours</label>
+		  <div class="collapsible-content">
+		    <div class="content-inner">
+		    </div>
+		  </div>
+		</div>
+              `;
               hoursTitleAdded = true;
             }
-            document.querySelector(".content").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+            document.querySelector(".content-inner").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
 
           }
         }
       );
-      var coll = document.getElementsByClassName("collapsible");
-      var i;
-      for (i = 0; i < coll.length; i++) {
-	coll[i].addEventListener("click", function() {
-	  this.classList.toggle("active");
-	  var content = this.nextElementSibling;
-	  if (content.style.display === "flex") {
-	    content.style.display = "none";
-	  } else {
-	    content.style.display = "flex";
-	  }
-	});
-      }
   });
 };
 
@@ -440,3 +436,4 @@ goToHomePage();
 clearCacheBtn();
 //grabs user location then builds "Near Me"
 grabUserLocation();
+localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
