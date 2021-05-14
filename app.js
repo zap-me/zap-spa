@@ -16,7 +16,6 @@ const fetchWebsite = async function(retailerId) {
       var hoursTitleAdded;
       data.store.hours.forEach(
         function(item) {
-          //WORK ON THIS - IF NOT EQUALS NULL
           if(item.hours != "") {
             if (!hoursTitleAdded) {
               document.querySelector(".info-div-holder").innerHTML+="<button type='button' class='collapsible'><p class='info-title hours-title'>STORE HOURS</p></button> <div class='content'></div>";
@@ -92,7 +91,8 @@ const makePageById = function(retailerId) {
   elementsArray.forEach(
     function(element) {
       if(element.retailerId == retailerId) {
-        makePage(JSON.stringify(element), false);
+        console.log("making near me");
+        makePage(JSON.stringify(element), true);
       } 
     }
   );
