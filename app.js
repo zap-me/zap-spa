@@ -21,7 +21,7 @@ const fetchWebsite = async function(retailerId) {
               document.querySelector(".info-div-holder").innerHTML+=`
                 <div class="wrap-collabsible">
 		  <input id="collapsible" class="toggle" type="checkbox">
-		  <label for="collapsible" class="lbl-toggle">Hours</label>
+		  <label for="collapsible" class="lbl-toggle info-title">Hours</label>
 		  <div class="collapsible-content">
 		    <div class="content-inner">
 		    </div>
@@ -30,7 +30,7 @@ const fetchWebsite = async function(retailerId) {
               `;
               hoursTitleAdded = true;
             }
-            document.querySelector(".content-inner").innerHTML+=`<p class='hours-title'>${item.day}: ${item.hours}</p>`;
+            document.querySelector(".content-inner").innerHTML+=`<p class='hours-title info-title'>${item.day}: ${item.hours}</p>`;
 
           }
         }

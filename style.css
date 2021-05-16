@@ -535,6 +535,10 @@ a {
 
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
+  width: 40vw;
+  margin-left: 5vw;
+  margin-top: 3vh;
+
 }
 
 input[type='checkbox'] {
@@ -545,8 +549,8 @@ input[type='checkbox'] {
   display: block;
 
   font-weight: bold;
-  font-family: monospace;
-  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2vh;
   text-transform: uppercase;
   text-align: center;
 
@@ -562,7 +566,7 @@ input[type='checkbox'] {
 }
 
 .lbl-toggle:hover {
-  color: #7C5A0B;
+  color: white;
 }
 
 .lbl-toggle::before {
@@ -599,8 +603,8 @@ input[type='checkbox'] {
 }
 
 .collapsible-content .content-inner {
-  background: rgba(250, 224, 66, .2);
-  border-bottom: 1px solid rgba(250, 224, 66, .45);
+  background: white;
+  border-bottom: white;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
   padding: .5rem 1rem;
