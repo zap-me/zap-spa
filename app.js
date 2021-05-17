@@ -135,38 +135,43 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
       <div class='category-name-container'><p class='category-para tall-size'>Near Me</p></div>
       <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
     `;
-    fetchData('getstores/', function(response) {
-	console.log(response.data);
-	 response.data.forEach(
-	   (element) => {
-	     if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
-	       document.querySelector("#near-me-wrapper").innerHTML+=`
-		 <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
-	       `;
-	     };
-	   }
-	 );
-	const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-	observer.observe();
-	addShopsSwiper();
-	addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
-	addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
-      }
-    );
   } 
 
   else {
-    var mymap = L.map('mapid').setView([parseFloat(latitude), parseFloat(longitude)], 18);  
+    var mymap = L.map('mapid').setView([parseFloat(latitude), parseFloat(longitude)], 13);  
     console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
-	maxZoom: 18,
+	maxZoom: 13,
 	id: 'mapbox/streets-v11',
 	tileSize: 512,
 	zoomOffset: -1,
 	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg'
     }).addTo(mymap);
   }
+  fetchData('getstores/', function(response) {
+      console.log(response.data);
+       response.data.forEach(
+	 (element) => {
+           if(!mapBtnPressed) {
+	     if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
+	       document.querySelector("#near-me-wrapper").innerHTML+=`
+		 <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
+	       `;
+	     };
+           }
+           else {
+             L.marker([element.latitude, element.longitude]).addTo(mymap);
+           }
+	 }
+       );
+      const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+      observer.observe();
+      addShopsSwiper();
+      addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
+      addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
+    }
+  );
 };
 
 //asks for permission to grab user location
