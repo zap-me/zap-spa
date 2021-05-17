@@ -407,8 +407,14 @@ a {
 
 .float-br {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 5vh;
+  right: 5vw;
+}
+
+.float-maps {
+  position: fixed;
+  bottom: 12vh;
+  right: 5vw;
 }
 
 .float-icon{
@@ -608,4 +614,9 @@ input[type='checkbox'] {
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
   padding: .5rem 1rem;
+}
+
+#mapid {
+  height: 100vh;
+  width: 100vw;
 }

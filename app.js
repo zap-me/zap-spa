@@ -3,6 +3,13 @@ const SWIPER_CONTAINER_MARGIN = '5vw';
 
 var latitude;
 var longitude;
+var mapBtnPressed;
+
+const createMaps = function() {
+  document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
+  grabUserLocation();
+
+};
 
 const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
@@ -122,28 +129,44 @@ const geoSuccess = function(position) {
 };
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
-  document.querySelector(".body-container").innerHTML+=`
-    <div class='category-name-container'><p class='category-para tall-size'>Near Me</p></div>
-    <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
-  `;
-  fetchData('getstores/', function(response) {
-      console.log(response.data);
-       response.data.forEach(
-         (element) => {
-           if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
-             document.querySelector("#near-me-wrapper").innerHTML+=`
-               <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
-             `;
-           };
-         }
-       );
-      const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-      observer.observe();
-      addShopsSwiper();
-      addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
-      addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
-    }
-  );
+  console.log(`mapBtnPressed is ${mapBtnPressed}`);
+  if (!mapBtnPressed) {
+    document.querySelector(".body-container").innerHTML+=`
+      <div class='category-name-container'><p class='category-para tall-size'>Near Me</p></div>
+      <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
+    `;
+    fetchData('getstores/', function(response) {
+	console.log(response.data);
+	 response.data.forEach(
+	   (element) => {
+	     if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
+	       document.querySelector("#near-me-wrapper").innerHTML+=`
+		 <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
+	       `;
+	     };
+	   }
+	 );
+	const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+	observer.observe();
+	addShopsSwiper();
+	addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
+	addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
+      }
+    );
+  } 
+
+  else {
+    var mymap = L.map('mapid').setView([parseFloat(latitude), parseFloat(longitude)], 18);  
+    console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
+	maxZoom: 18,
+	id: 'mapbox/streets-v11',
+	tileSize: 512,
+	zoomOffset: -1,
+	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg'
+    }).addTo(mymap);
+  }
 };
 
 //asks for permission to grab user location
@@ -172,6 +195,13 @@ const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
         localStorage.clear();
         location.reload(true);
+    };
+}
+
+const openMapsBtn = function() {
+    document.getElementById("open-maps").onclick = function() {
+      mapBtnPressed = true;
+      createMaps();
     };
 }
 
@@ -434,6 +464,7 @@ const getElementFromId = function(retailerId) {
 
 goToHomePage();
 clearCacheBtn();
+openMapsBtn();
 //grabs user location then builds "Near Me"
 grabUserLocation();
 localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
