@@ -149,7 +149,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
     console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
-	maxZoom: 13,
+	maxZoom: 20,
 	id: 'mapbox/streets-v11',
 	tileSize: 512,
 	zoomOffset: -1,
@@ -168,7 +168,15 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	     };
            }
            else {
-             L.marker([element.latitude, element.longitude]).addTo(mymap);
+             var imageMarker = L.icon(
+               {
+                 iconUrl : element.image.uri,
+                 iconSize: [100,100]
+
+
+               }
+             );
+             L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {makePageById(this.retailerid);}, element);
            }
 	 }
        );
