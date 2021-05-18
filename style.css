@@ -380,6 +380,7 @@ a {
 .info-para {
   color: grey;
   font-size: 1.5vh;
+  margin-left: 5vw;
 }
 
 .float-btn {
