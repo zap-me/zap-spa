@@ -7,6 +7,13 @@ var mapBtnPressed;
 
 const createMaps = function() {
   document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
+  document.querySelector(".body-container").innerHTML+=`
+    <div class="back-btn-maps">
+      <a id="back" href="#" onclick="goBack()" class="float-btn">
+        <i class="fa fa-angle-left float-icon"></i>
+      </a>
+    </div>
+  `;
   grabUserLocation();
 
 };

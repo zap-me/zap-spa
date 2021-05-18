@@ -405,6 +405,15 @@ a {
   margin-right: 20px;
 }
 
+.back-btn-maps {
+  display: flex;
+  position: fixed;
+  top: 3vh;
+  left: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
 .float-br {
   position: fixed;
   bottom: 5vh;
