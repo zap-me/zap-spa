@@ -13,10 +13,24 @@ const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
       if (data.store.address) {
-      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>STREET ADDRESS</p><p class='info-para'>" + data.store.address + "</p>";
+        var formattedAddress= data.store.address.replace(" ", "+");
+	document.querySelector(".info-div-holder").innerHTML+=`
+	  <p class='info-title'>STREET ADDRESS</p>
+	  <a target="_blank" href="https://www.google.co.nz/maps/place/${formattedAddress}/">
+	    <p class='info-para'>${data.store.address}</p>
+	  </a>
+	`;
       }
       if (data.store.phone || data.store.email) {
-      document.querySelector(".info-div-holder").innerHTML+="<p class='info-title'>CONTACT DETAILS</p><p class='info-para'>" + data.store.phone + "</p><p class='info-para'>" + data.store.email + "</p>";
+      document.querySelector(".info-div-holder").innerHTML+=`
+        <p class='info-title'>CONTACT DETAILS</p>
+        <a href="callto:${data.store.phone}">
+          <p class='info-para'>${data.store.phone}</p>
+        </a>
+        <a href="mailto:${data.store.email}">
+          <p class='info-para'>${data.store.email}</p>
+        </a>
+      `;
       }
       var hoursTitleAdded;
       data.store.hours.forEach(
