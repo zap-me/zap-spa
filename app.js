@@ -172,11 +172,15 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
                {
                  iconUrl : element.image.uri,
                  iconSize: [100,100]
-
-
                }
              );
-             L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {makePageById(this.retailerid);}, element);
+             L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
+               document.querySelector(".body-container").innerHTML+=`
+                 <div class="maps-popup-card">
+                   <img class="maps-popup-img" src="${this.image.uri}"/>
+                 </div>
+               `;
+             }, element);
            }
 	 }
        );

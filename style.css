@@ -629,3 +629,23 @@ input[type='checkbox'] {
   height: 100vh;
   width: 100vw;
 }
+
+.maps-popup-card {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 20vh;
+  background-color: white;
+  top: 80vh;
+  z-index: 999;
+  justify-content: start;
+  align-items: center;
+}
+
+.maps-popup-img {
+  height: 32vw;
+  width: 32vw;
+  object-fit: cover;
+  margin-left: 4vw;
+  border-radius: 11.25%;
+}
