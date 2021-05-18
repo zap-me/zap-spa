@@ -4,6 +4,11 @@ const SWIPER_CONTAINER_MARGIN = '5vw';
 var latitude;
 var longitude;
 
+const scrollToBottom = function() {
+  console.log("called scrollToBottom");
+  setTimeout(function(){window.scrollTo(0,document.body.scrollHeight);}, 200);
+}
+
 const fetchWebsite = async function(retailerId) {
   fetchData("getdetail/" + retailerId, function(data) {
       document.querySelector(".shop-link-" + retailerId).setAttribute("href",data.details.website);
@@ -19,7 +24,7 @@ const fetchWebsite = async function(retailerId) {
           if(item.hours != "") {
             if (!hoursTitleAdded) {
               document.querySelector(".info-div-holder").innerHTML+=`
-                <div class="wrap-collabsible">
+                <div class="wrap-collabsible" onclick="scrollToBottom();">
 		  <input id="collapsible" class="toggle" type="checkbox">
 		  <label for="collapsible" class="lbl-toggle info-title">Hours</label>
 		  <div class="collapsible-content">
@@ -321,7 +326,7 @@ const removeAndUpdateSlider = function(newId) {
       <a target='_blank' class='shop-link-${retailer.retailerId}'/>
         <div class='shop-now-btn'>
           <div class='circle-div circle-div-hidden'></div>
-          <p class='shop-now-text' onclick='makePage(${JSON.stringify(retailer)});'>shop now</p>
+          <p class='shop-now-text' onclick='makePage(${JSON.stringify(retailer)});'>show details</p>
           <div class='circle-div'>
             <i class="fa fa-arrow-right fa-button"></i>
           </div>
