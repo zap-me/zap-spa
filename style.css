@@ -406,10 +406,25 @@ a {
   margin-right: 20px;
 }
 
+.back-btn-maps {
+  display: flex;
+  position: fixed;
+  top: 3vh;
+  left: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
 .float-br {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 5vh;
+  right: 5vw;
+}
+
+.float-maps {
+  position: fixed;
+  bottom: 12vh;
+  right: 5vw;
 }
 
 .float-icon{
@@ -609,4 +624,29 @@ input[type='checkbox'] {
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
   padding: .5rem 1rem;
+}
+
+#mapid {
+  height: 100vh;
+  width: 100vw;
+}
+
+.maps-popup-card {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 20vh;
+  background-color: white;
+  top: 80vh;
+  z-index: 999;
+  justify-content: start;
+  align-items: center;
+}
+
+.maps-popup-img {
+  height: 32vw;
+  width: 32vw;
+  object-fit: cover;
+  margin-left: 4vw;
+  border-radius: 11.25%;
 }
