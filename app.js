@@ -38,7 +38,7 @@ const fetchWebsite = async function(retailerId) {
       if (data.store.phone || data.store.email) {
       document.querySelector(".info-div-holder").innerHTML+=`
         <p class='info-title'>CONTACT DETAILS</p>
-        <a href="callto:${data.store.phone}">
+        <a href="tel:${data.store.phone}">
           <p class='info-para'>${data.store.phone}</p>
         </a>
         <a href="mailto:${data.store.email}">
