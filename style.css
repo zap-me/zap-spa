@@ -692,6 +692,11 @@ input[type='checkbox'] {
 .location-shop-name {
   color: #a0a0a0;
   font-size: 2.25vh;
+  height: 20vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .locations-card-buttons-row {
