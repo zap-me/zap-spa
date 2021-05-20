@@ -208,7 +208,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
       const observer = lozad(); // lazy loads elements with default selector as '.lozad'
       observer.observe();
       addShopsSwiper();
-      addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
+      addPromosSwiper();
       addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
     }
   );
@@ -270,11 +270,24 @@ const goToHomePage = function() {
 };
 
 const addShopsSwiper = function() {
-  var marginLR = screen.width / 10; // ~10vw
+  var marginLR = (window.innerWidth * 5) / 100; // ~5vw
+  console.log(window.innerWidth, screen.width, marginLR);
+  console.log(JSON.stringify(screen));
   var swiper = new Swiper('.swiper-container', {
     slidesPerView: 2.2,
     slidesOffsetAfter: marginLR,
     slidesOffsetBefore: marginLR,
+  });
+}
+
+const addPromosSwiper = function() {
+  var marginLR = (window.innerWidth * 5) / 100; // ~5vw
+  console.log(window.innerWidth, screen.width, marginLR);
+  console.log(JSON.stringify(screen));
+  var swiper = new Swiper('.swiper-promos-container', {
+    slidesOffsetAfter: marginLR,
+    slidesOffsetBefore: marginLR,
+    autoplay: true,
   });
 }
 
@@ -299,7 +312,7 @@ const addPromos = function() {
   document.querySelector(".body-container").innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
   document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
   document.querySelector(".promos-container").innerHTML+="<p class='tall-size'>Latest Promotions</p>";
-  document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN};'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
+  document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
          (element) => {
@@ -307,7 +320,7 @@ const addPromos = function() {
            document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 20vh; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
-    addSwiper('.swiper-promos-container' ,1 ,SWIPER_SLIDE_MARGIN_RIGHT, true);
+    addPromosSwiper();
     localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
@@ -350,7 +363,7 @@ const goBack  = function() {
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addShopsSwiper();
-  addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
+  addPromosSwiper();
 };
 
 const addCategorySwiper = function() {
