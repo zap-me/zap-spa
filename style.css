@@ -678,3 +678,17 @@ input[type='checkbox'] {
   width: 100vw;
   z-index: 9999999999;
 }
+
+.location-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-left: 4vw;
+  height: 24vw;
+}
+
+.location-shop-name {
+  color: #a0a0a0;
+  font-size: 2.25vh;
+}

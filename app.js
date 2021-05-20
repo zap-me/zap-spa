@@ -12,6 +12,9 @@ const createMaps = function() {
     `
      <div class="maps-popup-card" style="display: none;">
        <img class="maps-popup-img" src=""/>
+       <div class="location-content-container">
+         <p class="location-shop-name"></p> 
+       </div>
      </div>
     `;
  document.querySelector(".body-container").innerHTML+=`
@@ -205,6 +208,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
                document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
                document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
+               document.querySelector(".location-shop-name").innerText= this.name;
              }, element);
            }
 	 }
