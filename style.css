@@ -686,6 +686,7 @@ input[type='checkbox'] {
   align-items: center;
   margin-left: 4vw;
   height: 30vw;
+  width: 40vw;
 }
 
 .location-shop-name {

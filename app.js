@@ -217,9 +217,11 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
              );
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
                var formattedAddress= this.address.replace(" ", "+");
+               var name = this.name;
+               var formattedName = name.substring(0, name.indexOf("-"));
                document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
                document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
-               document.querySelector(".location-shop-name").innerText= this.name;
+               document.querySelector(".location-shop-name").innerText= formattedName;
                document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
                document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
              }, element);
