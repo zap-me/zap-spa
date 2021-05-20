@@ -633,20 +633,20 @@ input[type='checkbox'] {
 
 .maps-popup-card {
   position: fixed;
-  width: 100vw;
+  width: 80vw;
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(15px);
   height: 20vh;
-  background-color: white;
-  top: 80vh;
+  top: 70vh;
   z-index: 999;
   justify-content: start;
   align-items: center;
-  border-top-left-radius: 13.5%;
-  border-top-right-radius: 13.5%%
+  border-radius: 13.5%;
 }
 
 .maps-popup-img {
-  height: 32vw;
-  width: 32vw;
+  height: 24vw;
+  width: 24vw;
   object-fit: cover;
   margin-left: 4vw;
   border-radius: 11.25%;
