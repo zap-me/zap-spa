@@ -701,7 +701,7 @@ input[type='checkbox'] {
   width: 100%;
 }
 
-.locations-card-buttons-row > div {
+.go-to-store-btn , .directions-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -711,7 +711,7 @@ input[type='checkbox'] {
   border-radius: 10%;
 }
 
-.locations-card-buttons-row > div > i {
+.directions-btn > i, .go-to-store-btn > i {
   color: white;
   font-size: 2vh;
 }

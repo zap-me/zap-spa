@@ -15,9 +15,11 @@ const createMaps = function() {
        <div class="location-content-container">
          <p class="location-shop-name"></p> 
          <div class="locations-card-buttons-row">
-           <div class="directions-btn">
-             <i class="fas fa-route"></i>
-           </div>
+           <a target="_blank" class="directions-btn-wrapper" href="#">
+	     <div class="directions-btn">
+	       <i class="fa fa-road"></i>
+	     </div>
+           </a>
            <div class="go-to-store-btn">
              <i class="fa fa-question-circle"></i>
            </div>
@@ -214,10 +216,12 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
                }
              );
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
+               var formattedAddress= this.address.replace(" ", "+");
                document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
                document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
                document.querySelector(".location-shop-name").innerText= this.name;
                document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
+               document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
              }, element);
            }
 	 }
