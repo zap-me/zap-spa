@@ -650,3 +650,19 @@ input[type='checkbox'] {
   margin-left: 4vw;
   border-radius: 11.25%;
 }
+
+.div-icon-maps {
+  width: 11vw;
+  height: 11vw;
+  border-radius: 50%;
+}
+
+
+.div-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  
+}
+

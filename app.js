@@ -187,10 +187,9 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	     };
            }
            else {
-             var imageMarker = L.icon(
+             var imageMarker = L.divIcon(
                {
-                 iconUrl : element.image.uri,
-                 iconSize: [100,100]
+                 html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
                }
              );
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
