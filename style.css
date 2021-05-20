@@ -640,6 +640,8 @@ input[type='checkbox'] {
   z-index: 999;
   justify-content: start;
   align-items: center;
+  border-top-left-radius: 13.5%;
+  border-top-right-radius: 13.5%%
 }
 
 .maps-popup-img {
@@ -665,3 +667,14 @@ input[type='checkbox'] {
   
 }
 
+
+.loading-container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  z-index: 9999999999;
+}

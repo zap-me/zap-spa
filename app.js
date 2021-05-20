@@ -6,6 +6,7 @@ var longitude;
 var mapBtnPressed;
 
 const createMaps = function() {
+  
   document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
   document.querySelector(".body-container").innerHTML+=
     `
@@ -20,6 +21,7 @@ const createMaps = function() {
       </a>
     </div>
   `;
+  document.querySelector(".body-container").innerHTML+=`<div class='loading-container' style='display: flex;'><div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div></div>`;
   grabUserLocation();
 
 };
@@ -170,7 +172,9 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
   } 
 
   else {
-    var mymap = L.map('mapid').setView([parseFloat(latitude), parseFloat(longitude)], 13);  
+    var mymap = L.map('mapid').on("load", function(){
+      document.querySelector(".loading-container").setAttribute("style", "display: none;");
+    }).setView([parseFloat(latitude), parseFloat(longitude)], 13);  
     console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
@@ -208,7 +212,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
       const observer = lozad(); // lazy loads elements with default selector as '.lozad'
       observer.observe();
       addShopsSwiper();
-      addPromosSwiper();
+      addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
       addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
     }
   );
@@ -270,24 +274,11 @@ const goToHomePage = function() {
 };
 
 const addShopsSwiper = function() {
-  var marginLR = (window.innerWidth * 5) / 100; // ~5vw
-  console.log(window.innerWidth, screen.width, marginLR);
-  console.log(JSON.stringify(screen));
+  var marginLR = screen.width / 10; // ~10vw
   var swiper = new Swiper('.swiper-container', {
     slidesPerView: 2.2,
     slidesOffsetAfter: marginLR,
     slidesOffsetBefore: marginLR,
-  });
-}
-
-const addPromosSwiper = function() {
-  var marginLR = (window.innerWidth * 5) / 100; // ~5vw
-  console.log(window.innerWidth, screen.width, marginLR);
-  console.log(JSON.stringify(screen));
-  var swiper = new Swiper('.swiper-promos-container', {
-    slidesOffsetAfter: marginLR,
-    slidesOffsetBefore: marginLR,
-    autoplay: true,
   });
 }
 
@@ -312,7 +303,7 @@ const addPromos = function() {
   document.querySelector(".body-container").innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
   document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
   document.querySelector(".promos-container").innerHTML+="<p class='tall-size'>Latest Promotions</p>";
-  document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
+  document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN};'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
          (element) => {
@@ -320,7 +311,7 @@ const addPromos = function() {
            document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 20vh; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
-    addPromosSwiper();
+    addSwiper('.swiper-promos-container' ,1 ,SWIPER_SLIDE_MARGIN_RIGHT, true);
     localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
@@ -363,7 +354,7 @@ const goBack  = function() {
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addShopsSwiper();
-  addPromosSwiper();
+  addSwiper('.swiper-promos-container', 1, SWIPER_SLIDE_MARGIN_RIGHT, true);
 };
 
 const addCategorySwiper = function() {
