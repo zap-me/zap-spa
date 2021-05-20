@@ -14,6 +14,14 @@ const createMaps = function() {
        <img class="maps-popup-img" src=""/>
        <div class="location-content-container">
          <p class="location-shop-name"></p> 
+         <div class="locations-card-buttons-row">
+           <div class="directions-btn">
+             <i class="fas fa-route"></i>
+           </div>
+           <div class="go-to-store-btn">
+             <i class="fa fa-question-circle"></i>
+           </div>
+         </div>
        </div>
      </div>
     `;
@@ -209,6 +217,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
                document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
                document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
                document.querySelector(".location-shop-name").innerText= this.name;
+               document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
              }, element);
            }
 	 }
