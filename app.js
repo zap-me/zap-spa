@@ -7,7 +7,13 @@ var mapBtnPressed;
 
 const createMaps = function() {
   document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
-  document.querySelector(".body-container").innerHTML+=`
+  document.querySelector(".body-container").innerHTML+=
+    `
+     <div class="maps-popup-card" style="display: none;">
+       <img class="maps-popup-img" src=""/>
+     </div>
+    `;
+ document.querySelector(".body-container").innerHTML+=`
     <div class="back-btn-maps">
       <a id="back" href="#" onclick="goBack()" class="float-btn">
         <i class="fa fa-angle-left float-icon"></i>
@@ -193,11 +199,8 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
                }
              );
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
-               document.querySelector(".body-container").innerHTML+=`
-                 <div class="maps-popup-card">
-                   <img class="maps-popup-img" src="${this.image.uri}"/>
-                 </div>
-               `;
+               document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
+               document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
              }, element);
            }
 	 }

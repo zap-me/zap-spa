@@ -632,7 +632,6 @@ input[type='checkbox'] {
 }
 
 .maps-popup-card {
-  display: flex;
   position: fixed;
   width: 100vw;
   height: 20vh;
