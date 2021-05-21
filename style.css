@@ -715,6 +715,7 @@ input[type='checkbox'] {
   height: 7vw;
   width: 15vw;
   border-radius: 10%;
+  box-shadow: 0.25vh -0.25vh 0.125vh rgb(0 0 0 / 18%);
 }
 
 .directions-btn > i, .go-to-store-btn > i {
