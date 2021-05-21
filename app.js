@@ -216,9 +216,11 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
                }
              );
              L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
+               console.log(`pressed ${this.name}`);
+               console.log(`index of results in ${this.name.indexOf("-")}`);
                var formattedAddress= this.address.replace(" ", "+");
                var name = this.name;
-               var formattedName = name.substring(0, name.indexOf("-"));
+               var formattedName = name.substring(0, name.indexOf("-") != -1 ? name.indexOf("-") : name.length);
                document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
                document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
                document.querySelector(".location-shop-name").innerText= formattedName;
