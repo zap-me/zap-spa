@@ -1,6 +1,7 @@
 const SWIPER_SLIDE_MARGIN_RIGHT = 0;
 const SWIPER_CONTAINER_MARGIN = '5vw';
 
+var isFlutterInAppWebViewReady = false;
 var latitude;
 var longitude;
 var mapBtnPressed;
@@ -241,7 +242,15 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 
 //asks for permission to grab user location
 const grabUserLocation = function() {
-  if (navigator.geolocation) {
+  if (typeof window.flutter_inappwebview !== "undefined") {
+    if (!isFlutterInAppWebViewReady) {
+      window.setTimeout(grabUserLocation, 1000);
+      return;
+    }
+    window.flutter_inappwebview.callHandler('getLocation').then(function(loc) {
+      geoSuccess({coords: { latitude: loc.lat, longitude: loc.long }});
+    });
+  } else if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
   } else {
     console.log("not met");
@@ -531,6 +540,10 @@ const getElementFromId = function(retailerId) {
   };
 };
 
+
+window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+ isFlutterInAppWebViewReady = true;
+});
 
 goToHomePage();
 clearCacheBtn();
