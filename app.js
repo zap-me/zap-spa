@@ -9,13 +9,21 @@ var mapBtnPressed;
 const searchItems = function() {
 
   var searchString = document.querySelector(".search-bar").value.toLowerCase();
+  document.querySelector(".body-container").innerHTML=`
+    <div class="search-container">
+      <input class="search-bar" type="text">
+      <div class="search-btn-div" onclick="searchItems();">
+        <i class="fa fa-search"></i>
+      </div>
+    </div>
+  `;
   console.log(`search term is ${searchString}`);
   var resultsArray = JSON.parse(localStorage.getItem("sortedCategories")).filter(
     element => element.description?.toLowerCase().includes(searchString) 
     || element.category?.toLowerCase().includes(searchString) 
     || element.retailer?.toLowerCase().includes(searchString)
   );
-  document.querySelector(".body-container").innerHTML=`
+  document.querySelector(".body-container").innerHTML+=`
     <div class="search-results-container"></div>
   `;
   resultsArray.forEach(
@@ -28,7 +36,7 @@ const searchItems = function() {
           <div class="text-holder-result">
             <p class="title-result">${element.retailer}</p>
 	    <a target='_blank' class='shop-link-${element.retailerId}' onclick='makePageById(${element.retailerId});'/>
-	      <div class='shop-now-btn'>
+	      <div class='shop-now-btn results-shop-btn'>
 		<div class='circle-div circle-div-hidden'></div>
 		<p class='shop-now-text'>show details</p>
 		<div class='circle-div'>
