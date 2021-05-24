@@ -818,3 +818,9 @@ input[type='checkbox'] {
   margin-left: 4vw;
   width: 40vw;
 }
+
+.results-back-btn {
+  position: fixed;
+  left: 5vw;
+  top: 8vh;
+}

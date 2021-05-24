@@ -24,7 +24,13 @@ const searchItems = function() {
     || element.retailer?.toLowerCase().includes(searchString)
   );
   document.querySelector(".body-container").innerHTML+=`
-    <div class="search-results-container"></div>
+    <div class="search-results-container">
+      <div class="inline-tl results-back-btn">
+	<a id="back" href="#" onclick="goBack()" class="float-btn">
+	  <i class="fa fa-angle-left float-icon"></i>
+	</a>
+      </div>
+    </div>
   `;
   resultsArray.forEach(
     function(element) {
