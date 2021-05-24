@@ -822,5 +822,9 @@ input[type='checkbox'] {
 .results-back-btn {
   position: fixed;
   left: 5vw;
-  top: 8vh;
+  top: 2vh;
+}
+
+#search-bar-results-page {
+  margin-left: 20vw;
 }

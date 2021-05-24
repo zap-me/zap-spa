@@ -11,7 +11,7 @@ const searchItems = function() {
   var searchString = document.querySelector(".search-bar").value.toLowerCase();
   document.querySelector(".body-container").innerHTML=`
     <div class="search-container">
-      <input class="search-bar" type="text">
+      <input class="search-bar" id="search-bar-results-page" type="text">
       <div class="search-btn-div" onclick="searchItems();">
         <i class="fa fa-search"></i>
       </div>
