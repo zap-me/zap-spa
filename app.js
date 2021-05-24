@@ -26,6 +26,15 @@ const searchItems = function() {
           </div>
           <div class="text-holder-result">
             <p class="title-result">${element.retailer}</p>
+	    <a target='_blank' class='shop-link-${element.retailerId}' onclick='makePageById(${element.retailerId});'/>
+	      <div class='shop-now-btn'>
+		<div class='circle-div circle-div-hidden'></div>
+		<p class='shop-now-text'>show details</p>
+		<div class='circle-div'>
+		  <i class="fa fa-arrow-right fa-button"></i>
+		</div>
+	      </div>
+	    </a>
           </div>
         </div>
       `;
