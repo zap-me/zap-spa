@@ -798,3 +798,18 @@ input[type='checkbox'] {
   margin-top: 3vh;
   box-shadow: 0 0.35vh 0.20vh #8e8e8e;
 }
+
+.text-holder-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 18vh;
+  width: 75vw;
+  
+}
+
+.title-result {
+  margin-left: 4vw;
+  margin-top: 4vh;
+  font-size: 1.75vh;
+}

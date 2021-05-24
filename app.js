@@ -24,6 +24,9 @@ const searchItems = function() {
           <div class="image-holder">
             <img class="search-result-img" src="${element.image.uri}"/>
           </div>
+          <div class="text-holder-result">
+            <p class="title-result">${element.retailer}</p>
+          </div>
         </div>
       `;
     }
