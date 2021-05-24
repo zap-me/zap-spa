@@ -5,6 +5,33 @@ var latitude;
 var longitude;
 var mapBtnPressed;
 
+const searchItems = function() {
+
+  var searchString = document.querySelector(".search-bar").value.toLowerCase();
+  console.log(`search term is ${searchString}`);
+  var resultsArray = JSON.parse(localStorage.getItem("sortedCategories")).filter(
+    element => element.description?.toLowerCase().includes(searchString) 
+    || element.category?.toLowerCase().includes(searchString) 
+    || element.retailer?.toLowerCase().includes(searchString)
+  );
+  document.querySelector(".body-container").innerHTML=`
+    <div class="search-results-container"></div>
+  `;
+  resultsArray.forEach(
+    function(element) {
+      document.querySelector(".search-results-container").innerHTML+=`
+        <div class="search-result-item">
+          <div class="image-holder">
+            <img class="search-result-img" src="${element.image.uri}"/>
+          </div>
+        </div>
+      `;
+    }
+  );
+
+  console.log(resultsArray);
+}
+
 const createMaps = function() {
   
   document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
@@ -282,6 +309,14 @@ const goToHomePage = function() {
         document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
         fetchData("getviewall", function(data) {
             document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
+            document.querySelector(".body-container").innerHTML+=`
+              <div class="search-container">
+                <input class="search-bar" type="text">
+                <div class="search-btn-div" onclick="searchItems();">
+                  <i class="fa fa-search"></i>
+                </div>
+              </div>
+            `;
             //adds promos slider
             addPromos();
             Object.entries(data).forEach(function(element) {
