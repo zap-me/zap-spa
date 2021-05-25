@@ -251,7 +251,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	zoomOffset: -1,
 	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg',
     }).addTo(mymap);
-    map.removeControl(map.zoomControl);
+    mymap.removeControl(mymap.zoomControl);
     L.control.zoom(
       {
         position: 'topright'
