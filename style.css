@@ -425,6 +425,7 @@ a {
   position: fixed;
   bottom: 12vh;
   right: 5vw;
+  width: 12vw;
 }
 
 .float-icon{

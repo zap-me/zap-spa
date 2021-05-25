@@ -236,72 +236,48 @@ const geoSuccess = function(position) {
 };
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
-  console.log(`mapBtnPressed is ${mapBtnPressed}`);
-  if (!mapBtnPressed) {
-    document.querySelector(".body-container").innerHTML+=`
-      <div class='category-name-container'><p class='category-para tall-size'>Near Me</p></div>
-      <div class='swiper-near-me-container' style='margin-left: ${SWIPER_CONTAINER_MARGIN}; overflow-x: hidden;'> <div class='swiper-wrapper' id='near-me-wrapper'></div></div>
-    `;
-  } 
-
-  else {
-    var mymap = L.map('mapid').on("load", function(){
-      document.querySelector(".loading-container").setAttribute("style", "display: none;");
-    }).setView([parseFloat(latitude), parseFloat(longitude)], 13);  
-    console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-	attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
-	maxZoom: 20,
-	id: 'mapbox/streets-v11',
-	tileSize: 512,
-	zoomOffset: -1,
-	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg',
-    }).addTo(mymap);
-    mymap.removeControl(mymap.zoomControl);
-    L.control.zoom(
-      {
-        position: 'topright'
-      }
-    ).addTo(mymap);
-    mymap.on("click", function(){document.querySelector(".maps-popup-card").setAttribute("style", "display: none");});
-  }
+  var mymap = L.map('mapid').on("load", function(){
+    document.querySelector(".loading-container").setAttribute("style", "display: none;");
+  }).setView([parseFloat(latitude), parseFloat(longitude)], 13);  
+  console.log(`latitude and longitude are ${parseFloat(latitude)} , ${parseFloat(longitude)}`);
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: '<a href="https://www.openstreetmap.org/copyright">Map data &copy;</a>, <a href="https://www.mapbox.com/">Imagery ©</a>',
+      maxZoom: 20,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg',
+  }).addTo(mymap);
+  mymap.removeControl(mymap.zoomControl);
+  L.control.zoom(
+    {
+      position: 'topright'
+    }
+  ).addTo(mymap);
+  mymap.on("click", function(){document.querySelector(".maps-popup-card").setAttribute("style", "display: none");});
   fetchData('getstores/', function(response) {
       console.log(response.data);
        response.data.forEach(
 	 (element) => {
-           if(!mapBtnPressed) {
-	     if (findProximity(parseFloat(latitude), parseFloat(longitude), parseFloat(element.latitude), parseFloat(element.longitude)) <= maxDistance) {
-	       document.querySelector("#near-me-wrapper").innerHTML+=`
-		 <div class='swiper-slide'><img class='catalog-img' src="${element.image.uri}" alt="${element.name}" onclick="makePageById(${element.retailerid});"/></div>
-	       `;
-	     };
-           }
-           else {
-             var imageMarker = L.divIcon(
-               {
-                 html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
-               }
-             );
-             L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
-               console.log(`pressed ${this.name}`);
-               console.log(`index of results in ${this.name.indexOf("-")}`);
-               var formattedAddress= this.address.replace(" ", "+");
-               var name = this.name;
-               var formattedName = name.substring(0, name.indexOf("-") != -1 ? name.indexOf("-") : name.length);
-               document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
-               document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
-               document.querySelector(".location-shop-name").innerText= formattedName;
-               document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
-               document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
-             }, element);
-           }
+	   var imageMarker = L.divIcon(
+	     {
+	       html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
+	     }
+	   );
+	   L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
+	     console.log(`pressed ${this.name}`);
+	     console.log(`index of results in ${this.name.indexOf("-")}`);
+	     var formattedAddress= this.address.replace(" ", "+");
+	     var name = this.name;
+	     var formattedName = name.substring(0, name.indexOf("-") != -1 ? name.indexOf("-") : name.length);
+	     document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
+	     document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
+	     document.querySelector(".location-shop-name").innerText= formattedName;
+	     document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
+	     document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
+	   }, element);
 	 }
        );
-      const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-      observer.observe();
-      addShopsSwiper();
-      addPromosSwiper();
-      addSwiper('.swiper-near-me-container', 2, SWIPER_SLIDE_MARGIN_RIGHT, false);
     }
   );
 };
@@ -632,6 +608,5 @@ goToHomePage();
 clearCacheBtn();
 openMapsBtn();
 //grabs user location then builds "Near Me"
-grabUserLocation();
 localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
