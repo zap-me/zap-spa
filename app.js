@@ -634,3 +634,4 @@ openMapsBtn();
 //grabs user location then builds "Near Me"
 grabUserLocation();
 localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
+window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
