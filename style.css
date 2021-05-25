@@ -760,7 +760,6 @@ input[type='checkbox'] {
 
 
 .search-results-container {
-  margin-top: 4vh;
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
@@ -777,7 +776,7 @@ input[type='checkbox'] {
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-bottom: 4vh;
+  margin-top: 4vh;
   box-shadow:0 0 20px rgba(0,0,0,0.8);
 }
 
@@ -828,3 +827,4 @@ input[type='checkbox'] {
 #search-bar-results-page {
   margin-left: 20vw;
 }
+

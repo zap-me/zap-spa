@@ -249,8 +249,14 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	id: 'mapbox/streets-v11',
 	tileSize: 512,
 	zoomOffset: -1,
-	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg'
+	accessToken: 'pk.eyJ1IjoiZGpwbmV3dG9uIiwiYSI6ImNrbGhnNTBvcjI3dzEybnBjdXUxZzJzOGgifQ.CPseZC330Gi2_sZIBbUSDg',
     }).addTo(mymap);
+    map.removeControl(map.zoomControl);
+    L.control.zoom(
+      {
+        position: 'topright'
+      }
+    ).addTo(mymap);
   }
   fetchData('getstores/', function(response) {
       console.log(response.data);
