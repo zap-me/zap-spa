@@ -831,3 +831,7 @@ input[type='checkbox'] {
 input:focus::placeholder{
   color: transparent;
 }
+
+* {
+  touch-action: manipulation;
+}
