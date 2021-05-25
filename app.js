@@ -9,54 +9,59 @@ var mapBtnPressed;
 const searchItems = function() {
 
   var searchString = document.querySelector(".search-bar").value.toLowerCase();
-  document.querySelector(".body-container").innerHTML=`
-    <div class="search-container">
-      <input class="search-bar" id="search-bar-results-page" type="text" placeholder="${searchString}">
-      <div class="search-btn-div" onclick="searchItems();">
-        <i class="fa fa-search"></i>
+  if (/^\s*$/.test(searchString)) {
+    document.querySelector(".search-bar").focus();
+  }
+  else {
+    document.querySelector(".body-container").innerHTML=`
+      <div class="search-container">
+	<input class="search-bar" id="search-bar-results-page" type="text" placeholder="${searchString}">
+	<div class="search-btn-div" onclick="searchItems();">
+	  <i class="fa fa-search"></i>
+	</div>
       </div>
-    </div>
-  `;
-  console.log(`search term is ${searchString}`);
-  var resultsArray = JSON.parse(localStorage.getItem("sortedCategories")).filter(
-    element => element.description?.toLowerCase().includes(searchString) 
-    || element.category?.toLowerCase().includes(searchString) 
-    || element.retailer?.toLowerCase().includes(searchString)
-  );
-  document.querySelector(".body-container").innerHTML+=`
-    <div class="search-results-container">
-      <div class="inline-tl results-back-btn">
-	<a id="back" href="#" onclick="goBack()" class="float-btn">
-	  <i class="fa fa-angle-left float-icon"></i>
-	</a>
+    `;
+    console.log(`search term is ${searchString}`);
+    var resultsArray = JSON.parse(localStorage.getItem("sortedCategories")).filter(
+      element => element.description?.toLowerCase().includes(searchString) 
+      || element.category?.toLowerCase().includes(searchString) 
+      || element.retailer?.toLowerCase().includes(searchString)
+    );
+    document.querySelector(".body-container").innerHTML+=`
+      <div class="search-results-container">
+	<div class="inline-tl results-back-btn">
+	  <a id="back" href="#" onclick="goBack()" class="float-btn">
+	    <i class="fa fa-angle-left float-icon"></i>
+	  </a>
+	</div>
       </div>
-    </div>
-  `;
-  resultsArray.forEach(
-    function(element) {
-      document.querySelector(".search-results-container").innerHTML+=`
-        <div class="search-result-item">
-          <div class="image-holder">
-            <img class="search-result-img" src="${element.image.uri}"/>
-          </div>
-          <div class="text-holder-result">
-            <p class="title-result">${element.retailer}</p>
-	    <a target='_blank' class='shop-link-${element.retailerId}' onclick='makePageById(${element.retailerId});'/>
-	      <div class='shop-now-btn results-shop-btn'>
-		<div class='circle-div circle-div-hidden'></div>
-		<p class='shop-now-text'>show details</p>
-		<div class='circle-div'>
-		  <i class="fa fa-arrow-right fa-button"></i>
+    `;
+    resultsArray.forEach(
+      function(element) {
+	document.querySelector(".search-results-container").innerHTML+=`
+	  <div class="search-result-item">
+	    <div class="image-holder">
+	      <img class="search-result-img" src="${element.image.uri}"/>
+	    </div>
+	    <div class="text-holder-result">
+	      <p class="title-result">${element.retailer}</p>
+	      <a target='_blank' class='shop-link-${element.retailerId}' onclick='makePageById(${element.retailerId});'/>
+		<div class='shop-now-btn results-shop-btn'>
+		  <div class='circle-div circle-div-hidden'></div>
+		  <p class='shop-now-text'>show details</p>
+		  <div class='circle-div'>
+		    <i class="fa fa-arrow-right fa-button"></i>
+		  </div>
 		</div>
-	      </div>
-	    </a>
-          </div>
-        </div>
-      `;
-    }
-  );
+	      </a>
+	    </div>
+	  </div>
+	`;
+      }
+    );
 
-  console.log(resultsArray);
+    console.log(resultsArray);
+  }
 }
 
 const createMaps = function() {
