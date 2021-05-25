@@ -8,7 +8,7 @@ var mapBtnPressed;
 
 const searchItems = function() {
 
-  var searchString = document.querySelector(".search-bar").value.toLowerCase();
+  var searchString = document.querySelector(".search-bar").value;
   if (/^\s*$/.test(searchString)) {
     document.querySelector(".search-bar").focus();
   }
@@ -21,6 +21,7 @@ const searchItems = function() {
 	</div>
       </div>
     `;
+    searchString = searchString.toLowerCase();
     console.log(`search term is ${searchString}`);
     var resultsArray = JSON.parse(localStorage.getItem("sortedCategories")).filter(
       element => element.description?.toLowerCase().includes(searchString) 
