@@ -262,6 +262,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
         position: 'topright'
       }
     ).addTo(mymap);
+    mymap.on("click", function(){document.querySelector(".maps-popup-card").setAttribute("style", "display: none");});
   }
   fetchData('getstores/', function(response) {
       console.log(response.data);
