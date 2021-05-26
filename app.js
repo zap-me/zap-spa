@@ -255,6 +255,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
     }
   ).addTo(mymap);
   mymap.on("click", function(){document.querySelector(".maps-popup-card").setAttribute("style", "display: none");});
+  L.marker([parseFloat(latitude), parseFloat(longitude)]).addTo(mymap);
   fetchData('getstores/', function(response) {
       console.log(response.data);
        response.data.forEach(
