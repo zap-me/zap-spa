@@ -392,7 +392,7 @@ a {
   color: #FFF;
   border-radius: 4vh;
   box-shadow: 2px 2px 3px #999;
-  z-index: 99;
+  z-index: 999;
 }
 
 .float-tl {
@@ -405,15 +405,6 @@ a {
   display: flex;
   margin-left: 20px;
   margin-right: 20px;
-}
-
-.back-btn-maps {
-  display: flex;
-  position: fixed;
-  top: 3vh;
-  left: 20px;
-  right: 20px;
-  z-index: 999;
 }
 
 .float-br {
@@ -755,6 +746,7 @@ input[type='checkbox'] {
 .search-bar {
   border-width: 0;
   padding-left: 5vw;
+  margin-left: 5vw;
   font-size: 5vw;
   font-family: 'Roboto', sans-serif;
 }
@@ -817,16 +809,6 @@ input[type='checkbox'] {
 .results-shop-btn {
   margin-left: 4vw;
   width: 40vw;
-}
-
-.results-back-btn {
-  position: fixed;
-  left: 5vw;
-  top: 2vh;
-}
-
-#search-bar-results-page {
-  margin-left: 20vw;
 }
 
 input:focus::placeholder{

@@ -14,12 +14,17 @@ const searchItems = function() {
   }
   else {
     document.querySelector(".body-container").innerHTML=`
-      <div class="search-container">
-	<input class="search-bar" id="search-bar-results-page" type="text" placeholder="${searchString}">
+  <div class="search-container">
+	<div class="inline-tl">
+	  <a id="back" href="#" onclick="goBack()" class="float-btn">
+	    <i class="fa fa-angle-left float-icon"></i>
+	  </a>
+	</div>
+	<input class="search-bar" type="text" placeholder="${searchString}">
 	<div class="search-btn-div" onclick="searchItems();">
 	  <i class="fa fa-search"></i>
 	</div>
-      </div>
+  </div>
     `;
     searchString = searchString.toLowerCase();
     console.log(`search term is ${searchString}`);
@@ -30,11 +35,6 @@ const searchItems = function() {
     );
     document.querySelector(".body-container").innerHTML+=`
       <div class="search-results-container">
-	<div class="inline-tl results-back-btn">
-	  <a id="back" href="#" onclick="goBack()" class="float-btn">
-	    <i class="fa fa-angle-left float-icon"></i>
-	  </a>
-	</div>
       </div>
     `;
     resultsArray.forEach(
@@ -88,11 +88,9 @@ const createMaps = function() {
      </div>
     `;
  document.querySelector(".body-container").innerHTML+=`
-    <div class="back-btn-maps">
-      <a id="back" href="#" onclick="goBack()" class="float-btn">
-        <i class="fa fa-angle-left float-icon"></i>
-      </a>
-    </div>
+  <a id="back" href="#" onclick="goBack()" class="float-tl float-btn">
+    <i class="fa fa-angle-left float-icon"></i>
+  </a>
   `;
   document.querySelector(".body-container").innerHTML+=`<div class='loading-container' style='display: flex;'><div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div></div>`;
   grabUserLocation();
@@ -324,6 +322,7 @@ const openMapsBtn = function() {
     document.getElementById("open-maps").onclick = function() {
       mapBtnPressed = true;
       createMaps();
+      hideMapBtn();
     };
 }
 
@@ -439,13 +438,22 @@ const appendData = function(jsonItem) {
 
 };
 
-const goBack  = function() {
+const goBack = function() {
   document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addShopsSwiper();
   addPromosSwiper();
+  showMapBtn();
 };
+
+const hideMapBtn = function() {
+    document.getElementById('open-maps').style.display = 'none';
+}
+
+const showMapBtn = function() {
+    document.getElementById('open-maps').style.display = 'block';
+}
 
 const addCategorySwiper = function() {
   console.log("called");
