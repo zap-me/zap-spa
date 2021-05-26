@@ -76,11 +76,11 @@ const createMaps = function() {
          <p class="location-shop-name"></p> 
          <div class="locations-card-buttons-row">
            <a target="_blank" class="directions-btn-wrapper" href="#">
-	     <div class="circle-div">
-	       <i class="fa fa-road"></i>
+	     <div class="circle-div circle-div-blue circle-div-big">
+	       <i class="fa fa-map"></i>
 	     </div>
            </a>
-	   <div class='circle-div' id="go-to-page-results">
+	   <div class='circle-div circle-div-blue circle-div-big' id="go-to-page-results">
 	     <i class="fa fa-arrow-right fa-button"></i>
 	   </div>
          </div>
@@ -163,7 +163,7 @@ const makePage = function(element_string, promoClicked) {
     <i class="fa fa-angle-left float-icon"></i>
   </a>
   <img class='page-img' src='${element_string.image.uri}' />
-  <dic class='container-card'>
+  <div class='container-card'>
     <div class='title-holder'><p class='category-title' onclick='viewAll(${element_string.categoryId});'>${element_string.category.toUpperCase()}</p></div>
     <div class='title-holder' ><p class='retailer-title'>${element_string.label}</p></div>
   </div>
@@ -179,12 +179,11 @@ const makePage = function(element_string, promoClicked) {
   document.querySelector(".retailer-page-container").innerHTML+=`
 <a target='_blank' class='shop-link-${element_string.retailerId}'/>
   <div class='shop-now-container'>
-    <div class='shop-now-div'>
-      <div class='circle-div circle-div-hidden'>
-      </div>
-      <p>shop now</p>
-      <div class='circle-div white-smaller'>
-	<i class="fa fa-arrow-right fa-button"></i>
+    <div class='shop-now-btn'>
+      <div class='circle-div circle-div-hidden'></div>
+      <p class='shop-now-text'>shop now</p>
+      <div class='circle-div'>
+        <i class="fa fa-arrow-right fa-button"></i>
       </div>
     </div>
   </div>
@@ -397,7 +396,7 @@ const addPromos = function() {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 20vh; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
     addPromosSwiper();
@@ -499,7 +498,7 @@ const removeAndUpdateSlider = function(newId) {
         <div class='shop-now-btn'>
           <div class='circle-div circle-div-hidden'></div>
           <p class='shop-now-text'>show details</p>
-          <div class='circle-div white-smaller even-smaller'>
+          <div class='circle-div'>
             <i class="fa fa-arrow-right fa-button"></i>
           </div>
         </div>
