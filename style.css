@@ -336,16 +336,17 @@ a {
 }
 
 .circle-div {
-  color: #3e6fc1;
-  font-size: 1.5vh;
-  background-color: white;
+  color: white;
+  font-size: 3vw;
+  background-color: #3e6fc1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 2.7vh;
+  height: 10vw;
   border-radius: 50%; 
-  width: 2.7vh;
+  width: 10vw;
   margin-right: 0.5vh;
+  box-shadow: 1px 1px 10px;
 }
 
 .circle-div-hidden {
@@ -835,4 +836,17 @@ input:focus::placeholder{
 
 * {
   touch-action: manipulation;
+}
+
+.white-smaller {
+  width: 7vw;
+  height: 7vw;
+  background-color: white;
+  color: #3e6fc1;
+  margin-left: 3vw;
+  margin-right: 2vw;
+}
+
+#clear-cache {
+  width: 12vw;
 }

@@ -76,11 +76,11 @@ const createMaps = function() {
          <p class="location-shop-name"></p> 
          <div class="locations-card-buttons-row">
            <a target="_blank" class="directions-btn-wrapper" href="#">
-	     <div class="directions-btn">
+	     <div class="circle-div">
 	       <i class="fa fa-road"></i>
 	     </div>
            </a>
-	   <div class='circle-div'>
+	   <div class='circle-div' id="go-to-page-results">
 	     <i class="fa fa-arrow-right fa-button"></i>
 	   </div>
          </div>
@@ -185,7 +185,7 @@ const makePage = function(element_string, promoClicked) {
       <div class='circle-div circle-div-hidden'>
       </div>
       <p>shop now</p>
-      <div class='circle-div'>
+      <div class='circle-div white-smaller'>
 	<i class="fa fa-arrow-right fa-button"></i>
       </div>
     </div>
@@ -273,7 +273,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	     document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
 	     document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
 	     document.querySelector(".location-shop-name").innerText= formattedName;
-	     document.querySelector(".circle-div").setAttribute("onclick", `makePageById(${this.retailerid});`);
+	     document.querySelector("#go-to-page-results").setAttribute("onclick", `makePageById(${this.retailerid});`);
 	     document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
 	   }, element);
 	 }
