@@ -848,4 +848,10 @@ input:focus::placeholder{
 
 #clear-cache {
   width: 12vw;
+  height: 12vw;
+}
+
+#open-maps {
+  width: 12vw;
+  height: 12vw;
 }
