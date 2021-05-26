@@ -80,9 +80,9 @@ const createMaps = function() {
 	       <i class="fa fa-road"></i>
 	     </div>
            </a>
-           <div class="go-to-store-btn">
-             <i class="fa fa-question-circle"></i>
-           </div>
+	   <div class='circle-div'>
+	     <i class="fa fa-arrow-right fa-button"></i>
+	   </div>
          </div>
        </div>
      </div>
@@ -273,7 +273,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
 	     document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
 	     document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
 	     document.querySelector(".location-shop-name").innerText= formattedName;
-	     document.querySelector(".go-to-store-btn").setAttribute("onclick", `makePageById(${this.retailerid});`);
+	     document.querySelector(".circle-div").setAttribute("onclick", `makePageById(${this.retailerid});`);
 	     document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
 	   }, element);
 	 }

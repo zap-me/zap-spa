@@ -25,7 +25,7 @@ p {
   width: 40vw;
   height: 40vw;
   box-shadow: 0 0 0 1px black;
-  margin-bottom: 5vh;
+  margin-bottom: 10vw;
   border-radius: 3%;
   object-fit: cover;
 }
@@ -95,7 +95,7 @@ p {
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  height: 7vh;
+  height: 16vw;
   display: flex;
   align-items: center;
 }
@@ -204,7 +204,7 @@ p {
   color: #767676;
   margin: 0px;
   padding: 0px;
-  font-size: 2.5vh;
+  font-size: 5vw;
   margin-right: 5vw;
 }
 
@@ -267,9 +267,9 @@ p {
   align-items: center;
   background-color:#3e6fc1;
   width: 40vw;
-  height: 3.6vh;
-  border-radius: 2.5vh;
-  margin-bottom: 2vh;
+  height: 8vw;
+  border-radius: 5vw;
+  margin-bottom: 4vw;
 }
 
 .shop-now-text {
@@ -384,8 +384,8 @@ a {
 }
 
 .float-btn {
-  width: 4vh;
-  height: 4vh;
+  width: 8vw;
+  height: 8vw;
   font-size: 2vh;
   background-color: rgb(62, 111, 193);
   color: #FFF;
@@ -436,7 +436,7 @@ a {
 }
 
 .promos-container {
-  height: 40vh;
+  height: 85vw;
   width: 100vw;
   background-color: #f5f5f5;
   display: flex;
@@ -448,13 +448,13 @@ a {
 }
 
 .swiper-promos-container {
-  height: 40vh;
+  height: 70vw;
   overflow-x: hidden;
 }
 
 .promo-box {
   width: 90vw;
-  height: 25.5vh;
+  height: 55vw;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -469,14 +469,14 @@ a {
   z-index: 999;
   position: relative;
   left: 5vw;
-  bottom: 14vh;
+  bottom: 30vw;
   object-fit: cover;
-  height: 13vh;
-  width: 13vh;
+  height: 26.5vw;
+  width: 26.5vw;
   border-radius: 7%;
   border-style: solid;
   border-color: white;
-  border-width: 0.33vh;
+  border-width: 0.8vw;
   box-shadow: 5px 10px 18px #888888;
 }
 
@@ -527,7 +527,7 @@ a {
 
 .svg-holder {
   width: 100vw;
-  height: 15vh;
+  height: 32vw;
 }
 
 .svg-holder-svg {
@@ -537,12 +537,12 @@ a {
 }
 
 .tall-size {
-  font-size: 3vh;
+  font-size: 5vw;
 }
 
 .grey-space-div {
   width: 100vw;
-  height: 3vh;
+  height: 5vw;
   background-color: #f5f5f5;
 }
 
@@ -748,14 +748,14 @@ input[type='checkbox'] {
 
 .search-btn-div > i {
   color: grey;
-  font-size: 2.1vh;
+  font-size: 4.5vw;
 
 }
 
 .search-bar {
   border-width: 0;
   padding-left: 5vw;
-  font-size: 3vh;
+  font-size: 5vw;
   font-family: 'Roboto', sans-serif;
 }
 
