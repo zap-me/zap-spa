@@ -855,3 +855,8 @@ input:focus::placeholder{
   width: 12vw;
   height: 12vw;
 }
+
+.even-smaller {
+  height: 6vw;
+  width: 6vw;
+}

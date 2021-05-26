@@ -490,7 +490,7 @@ const removeAndUpdateSlider = function(newId) {
         <div class='shop-now-btn'>
           <div class='circle-div circle-div-hidden'></div>
           <p class='shop-now-text'>show details</p>
-          <div class='circle-div'>
+          <div class='circle-div white-smaller even-smaller'>
             <i class="fa fa-arrow-right fa-button"></i>
           </div>
         </div>
