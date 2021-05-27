@@ -267,23 +267,25 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
       console.log(response.data);
        response.data.forEach(
 	 (element) => {
-	   var imageMarker = L.divIcon(
-	     {
-	       html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
-	     }
-	   );
-	   L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
-	     console.log(`pressed ${this.name}`);
-	     console.log(`index of results in ${this.name.indexOf("-")}`);
-	     var formattedAddress= this.address.replace(" ", "+");
-	     var name = this.name;
-	     var formattedName = name.substring(0, name.indexOf("-") != -1 ? name.indexOf("-") : name.length);
-	     document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
-	     document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
-	     document.querySelector(".location-shop-name").innerText= formattedName;
-	     document.querySelector("#go-to-page-results").setAttribute("onclick", `makePageById(${this.retailerid});`);
-	     document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
-	   }, element);
+           if (element.image && element.latitude && element.longitude) {
+	     var imageMarker = L.divIcon(
+	       {
+		 html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
+	       }
+	     );
+	     L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
+	       console.log(`pressed ${this.name}`);
+	       console.log(`index of results in ${this.name.indexOf("-")}`);
+	       var formattedAddress= this.address.replace(" ", "+");
+	       var name = this.name;
+	       var formattedName = name.substring(0, name.indexOf("-") != -1 ? name.indexOf("-") : name.length);
+	       document.querySelector(".maps-popup-card").setAttribute("style", "display: flex;");
+	       document.querySelector(".maps-popup-img").setAttribute("src", this.image.uri);
+	       document.querySelector(".location-shop-name").innerText= formattedName;
+	       document.querySelector("#go-to-page-results").setAttribute("onclick", `makePageById(${this.retailerid});`);
+	       document.querySelector(".directions-btn-wrapper").setAttribute("href", `https://www.google.co.nz/maps/place/${formattedAddress}/@${this.latitude},${this.longitude},15z/`);
+	     }, element);
+           }
 	 }
        );
     }
