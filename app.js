@@ -502,7 +502,6 @@ const removeAndUpdateSlider = function(newId) {
   selectedCategoryDiv.style.borderColor= "#3e6fc1";
   selectedCategoryDiv.childNodes[0].style.color= "#3e6fc1";
   document.querySelector(".grid-holder").innerHTML+=`<div class='svg-holder category-svg'><img class='svg-holder-svg' src='${findSvg(newId)}'/></div>`;
-  document.querySelector(".svg-holder-svg").setAttribute("src", findSvg(newId));
   sortedCategories.forEach(
     function(retailer) {
       var retailerDesc = retailer.description ? `<div class='viewall-text-container'><p class='viewall-retailer-description'>${retailer.description}</p></div>` : "";
