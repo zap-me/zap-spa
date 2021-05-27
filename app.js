@@ -410,7 +410,7 @@ const addPromos = function(layer) {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePage(getElementFromId(" + element.retailerId + "), true);'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + element.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
          }
        );
     addPromosSwiper();
@@ -434,7 +434,7 @@ const iterateThruAndAppend = function(layer, items) {
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
-    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePage(" + element_stringified + ", false);' /></div>";
+    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePageById(" + element.retailerId + ");' /></div>";
   }
   );
   
@@ -516,7 +516,7 @@ const removeAndUpdateSlider = function(newId) {
     </div>
     ${retailerDesc}
     <div class='viewall-text-container'>
-      <a target='_blank' class='shop-link-${retailer.retailerId}' onclick='makePage(${JSON.stringify(retailer)});'/>
+      <a target='_blank' class='shop-link-${retailer.retailerId}' onclick='makePageById(${retailer.retailerId});'/>
         <div class='shop-now-btn'>
           <div class='circle-div circle-div-hidden'></div>
           <p class='shop-now-text'>show details</p>
