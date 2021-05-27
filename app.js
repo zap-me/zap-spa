@@ -596,14 +596,14 @@ const viewAll = function(categoryId) {
         <i class="fa fa-angle-left float-icon"></i>
       </a>
     </div>
-    <div class='swiper-wrapper'></div>
+    <div id="viewall-swiper-wrapper" class='swiper-wrapper'></div>
   </div>
 </div>
 `;
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	    document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
+	    document.querySelector("#viewall-swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
 	    categoriesInBar.push(retailer.category);
       }
     }
