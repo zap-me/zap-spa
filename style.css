@@ -62,7 +62,7 @@ p {
 }
 
 .retailer-title {
-  font-size: 70px;
+  font-size: 5vw;
 }
 
 .category-title {
@@ -71,7 +71,7 @@ p {
 }
 
 .description {
-  font-size: 35px;
+  font-size: 3.5vw;
   color: grey;
 }
 
@@ -479,12 +479,12 @@ a {
   background-color: #eee;
   color: #444;
   cursor: pointer;
-  padding: 18px;
+  padding: 3vw;
   width: 100%;
   border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
+  font-size: 3vw;
   height: 10vw;
   display: flex;
   align-items: center;
@@ -742,7 +742,6 @@ input[type='checkbox'] {
 .search-btn-div > i {
   color: grey;
   font-size: 4.5vw;
-
 }
 
 .search-bar {
