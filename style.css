@@ -564,14 +564,14 @@ input[type='checkbox'] {
   text-transform: uppercase;
   text-align: center;
 
-  padding: 1rem;
+  padding: 1vw;
 
   color: white;
   background: #3e6fc1;
 
   cursor: pointer;
 
-  border-radius: 7px;
+  border-radius: 0.5vw;
   transition: all 0.25s ease-out;
 }
 
