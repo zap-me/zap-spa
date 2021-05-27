@@ -814,3 +814,9 @@ input:focus::placeholder{
 * {
   touch-action: manipulation;
 }
+
+.maps-div-icon {
+  background: url("https://i.stack.imgur.com/Pwbuz.png");
+  border-radius: 50%;
+  border-width: 0;
+}

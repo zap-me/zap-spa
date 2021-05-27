@@ -270,7 +270,7 @@ const storesWithinXMeters= function(maxDistance, latitude, longitude) {
            if (element.image && element.latitude && element.longitude) {
 	     var imageMarker = L.divIcon(
 	       {
-		 html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
+		 className: "maps-div-icon", html: `<div class="div-icon-maps"><img class="div-icon-img" src="${element.image.uri}" /></div>`,
 	       }
 	     );
 	     L.marker([element.latitude, element.longitude], {icon: imageMarker}).addTo(mymap).on('click', function(e) {
