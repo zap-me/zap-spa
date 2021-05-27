@@ -331,7 +331,6 @@ const openMapsBtn = function() {
     document.getElementById("open-maps").onclick = function() {
       mapBtnPressed = true;
       createMaps();
-      hideMapBtn();
     };
 }
 
@@ -453,30 +452,28 @@ const currentLayer = function() {
 }
 
 const makeLayer = function(name) {
-  var bc = document.getElementById('layers');
-  var count = bc.childElementCount;
+  var layers = document.getElementById('layers');
+  var count = layers.childElementCount;
   var layer = document.createElement('div');
   layer.name = name;
   layer.className = 'layer-container';
   layer.style.zIndex = count + 10;
-  bc.appendChild(layer);
+  layers.appendChild(layer);
+  // hide map button
+  if (name == 'map')
+    document.getElementById('open-maps').style.display = 'none';
   return layer;
 }
 
 const goBack = function() {
-  var bc = document.getElementById('layers');
-  if (bc.lastChild) {
-    bc.removeChild(bc.lastChild);
+  var layers = document.getElementById('layers');
+  if (layers.lastChild) {
+    layers.removeChild(layers.lastChild);
+    // show map button
+    if (layers.lastChild === null || layers.lastChild.name !== 'map')
+      document.getElementById('open-maps').style.display = 'block';
   }
 };
-
-const hideMapBtn = function() {
-    document.getElementById('open-maps').style.display = 'none';
-}
-
-const showMapBtn = function() {
-    document.getElementById('open-maps').style.display = 'block';
-}
 
 const addCategorySwiper = function() {
   console.log("called");
