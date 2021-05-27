@@ -6,14 +6,23 @@ var latitude;
 var longitude;
 var mapBtnPressed;
 
+const lastElement = function(selector) {
+    var eles = document.querySelectorAll(selector);
+    return Array.from(eles).pop();
+}
+
 const searchItems = function() {
 
-  var searchString = document.querySelector(".search-bar").value;
+  var searchString = lastElement(".search-bar").value;
   if (/^\s*$/.test(searchString)) {
-    document.querySelector(".search-bar").focus();
+    lastElement(".search-bar").focus();
   }
   else {
-    document.querySelector(".body-container").innerHTML=`
+    var layer = currentLayer();
+    if (layer !== null && layer.name == 'search')
+      goBack();
+    layer = makeLayer('search');
+    layer.innerHTML = `
   <div class="search-container">
 	<div class="inline-tl">
 	  <a id="back" href="#" onclick="goBack()" class="float-btn">
@@ -33,7 +42,7 @@ const searchItems = function() {
       || element.category?.toLowerCase().includes(searchString) 
       || element.retailer?.toLowerCase().includes(searchString)
     );
-    document.querySelector(".body-container").innerHTML+=`
+    layer.innerHTML += `
       <div class="search-results-container">
       </div>
     `;
@@ -66,10 +75,9 @@ const searchItems = function() {
 }
 
 const createMaps = function() {
-  
-  document.querySelector(".body-container").innerHTML=`<div id="mapid"></div>`;
-  document.querySelector(".body-container").innerHTML+=
-    `
+  var layer = makeLayer('map');
+  layer.innerHTML = `<div id="mapid"></div>`;
+  layer.innerHTML += `
      <div class="maps-popup-card" style="display: none;">
        <img class="maps-popup-img" src=""/>
        <div class="location-content-container">
@@ -87,19 +95,22 @@ const createMaps = function() {
        </div>
      </div>
     `;
- document.querySelector(".body-container").innerHTML+=`
+ layer.innerHTML += `
   <a id="back" href="#" onclick="goBack()" class="float-tl float-btn">
     <i class="fa fa-angle-left float-icon"></i>
   </a>
   `;
-  document.querySelector(".body-container").innerHTML+=`<div class='loading-container' style='display: flex;'><div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div></div>`;
+  layer.innerHTML += `<div class='loading-container' style='display: flex;'><div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div></div>`;
   grabUserLocation();
 
 };
 
 const scrollToBottom = function() {
   console.log("called scrollToBottom");
-  setTimeout(function(){window.scrollTo(0,document.body.scrollHeight);}, 200);
+  setTimeout(function() {
+    var layer = currentLayer();
+    layer.scrollTop = layer.scrollHeight
+  }, 200);
 }
 
 const fetchWebsite = async function(retailerId) {
@@ -151,13 +162,12 @@ const fetchWebsite = async function(retailerId) {
 };
 
 const makePage = function(element_string, promoClicked) {
+  var layer = makeLayer('shop');
   console.log(`element string is ${element_string}`);
   if(promoClicked) {
     element_string = JSON.parse(element_string);
   }
-  document.querySelector(".body-container").innerHTML="";
-  scrollToTop();
-  document.querySelector(".body-container").innerHTML+=`
+  layer.innerHTML = `
 <div class='retailer-page-container'>
   <a id="back" href="#" onclick="goBack()" class="float-btn float-tl">
     <i class="fa fa-angle-left float-icon"></i>
@@ -325,14 +335,15 @@ const openMapsBtn = function() {
     };
 }
 
-const goToHomePage = function() {
+const initBaseLayer = function() {
+    var layer = makeLayer('base');
     var current = new Date();
-    if ((localStorage.getItem("bodyContainerInnerHtml") === null)  || current.getHours() == localStorage.getItem("timeSet") - 1 ) {
+    if ((localStorage.getItem("base-layer-content") === null)  || current.getHours() == localStorage.getItem("timeSet") - 1 ) {
         localStorage.setItem("timeSet", current.getHours());
-        document.querySelector(".body-container").innerHTML="<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
+        layer.innerHTML = "<div class='loader'><div class='inner one'></div><div class='inner two'></div><div class='inner three'></div></div>";
         fetchData("getviewall", function(data) {
-            document.querySelector(".body-container").innerHTML="<div class='main-navbar'></div>";
-            document.querySelector(".body-container").innerHTML+=`
+            layer.innerHTML = "<div class='main-navbar'></div>";
+            layer.innerHTML += `
               <div class="search-container">
                 <input class="search-bar" type="text">
                 <div class="search-btn-div" onclick="searchItems();">
@@ -341,14 +352,21 @@ const goToHomePage = function() {
               </div>
             `;
             //adds promos slider
-            addPromos();
+            addPromos(layer);
             Object.entries(data).forEach(function(element) {
-                appendData(element);
+                appendData(layer, element);
             });
+            window.setTimeout(function() {
+              localStorage.setItem("base-layer-content", layer.innerHTML);
+            }, 1000);
         });
     }
     else {
-        goBack();
+      layer.innerHTML = localStorage.getItem("base-layer-content");
+      const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+      observer.observe();
+      addShopsSwiper();
+      addPromosSwiper();
     }
 };
 
@@ -382,14 +400,9 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
 
 //returns URL string
 
-const scrollToTop = function() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-};
-
-const addPromos = function() {
-  document.querySelector(".body-container").innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
-  document.querySelector(".body-container").innerHTML+="<div class='promos-container'></div>";
+const addPromos = function(layer) {
+  layer.innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
+  layer.innerHTML+="<div class='promos-container'></div>";
   document.querySelector(".promos-container").innerHTML+="<p class='tall-size'>Latest Promotions</p>";
   document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
   fetchData('getpromotions/', function(response) {
@@ -400,11 +413,10 @@ const addPromos = function() {
          }
        );
     addPromosSwiper();
-    localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
     });
 };
 
-const iterateThruAndAppend = function(items) {
+const iterateThruAndAppend = function(layer, items) {
   items.sort((a, b) => (a.categoryId > b.categoryId) ? 1 : -1);
   localStorage.setItem("sortedCategories",JSON.stringify(items));
   categoriesSoFar=[];
@@ -412,8 +424,8 @@ const iterateThruAndAppend = function(items) {
   function(element) {
     element_stringified = JSON.stringify(element);
     if (categoriesSoFar.includes("category-" + element.categoryId) === false) {
-      document.querySelector(".body-container").innerHTML+="<div class='category-name-container'><p class='category-para tall-size'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
-      document.querySelector(".body-container").innerHTML+=`
+      layer.innerHTML+="<div class='category-name-container'><p class='category-para tall-size'>" + element.category  + "</p><p onclick='viewAll(" + element.categoryId + ");' class='view-all-btn'>View all</p></div>";
+      layer.innerHTML+=`
 <div class='swiper-container'>
   <div class='swiper-wrapper' id='category-${element.categoryId}'></div>
 </div>
@@ -428,22 +440,34 @@ const iterateThruAndAppend = function(items) {
   const observer = lozad(); // lazy loads elements with default selector as '.lozad'
   observer.observe();
   addShopsSwiper();
-  localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 };
 
 
-const appendData = function(jsonItem) {
-  iterateThruAndAppend(jsonItem[1]);
+const appendData = function(layer, jsonItem) {
+  iterateThruAndAppend(layer, jsonItem[1]);
 
 };
+
+const currentLayer = function() {
+  return document.getElementById('layers').lastChild;
+}
+
+const makeLayer = function(name) {
+  var bc = document.getElementById('layers');
+  var count = bc.childElementCount;
+  var layer = document.createElement('div');
+  layer.name = name;
+  layer.className = 'layer-container';
+  layer.style.zIndex = count + 10;
+  bc.appendChild(layer);
+  return layer;
+}
 
 const goBack = function() {
-  document.querySelector(".body-container").innerHTML=localStorage.getItem("bodyContainerInnerHtml");
-  const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-  observer.observe();
-  addShopsSwiper();
-  addPromosSwiper();
-  showMapBtn();
+  var bc = document.getElementById('layers');
+  if (bc.lastChild) {
+    bc.removeChild(bc.lastChild);
+  }
 };
 
 const hideMapBtn = function() {
@@ -564,9 +588,8 @@ const viewAll = function(categoryId) {
   var allCategoryItems = JSON.parse(localStorage.getItem("sortedCategories"));
   var sortedCategories = allCategoryItems.filter(element => element.categoryId == categoryId);
   localStorage.setItem("lastPressed", categoryId);
-  document.querySelector(".body-container").innerHTML="";
-  scrollToTop();
-  document.querySelector(".body-container").innerHTML+=`
+  var layer = makeLayer('category');
+  layer.innerHTML = `
 <div class='viewall-page-container'>
   <div class='viewall-categories-bar'>
     <div class="inline-tl">
@@ -581,8 +604,8 @@ const viewAll = function(categoryId) {
   allCategoryItems.forEach(
     function(retailer) {
       if ( categoriesInBar.includes(retailer.category) !== true ) {
-	document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
-	categoriesInBar.push(retailer.category);
+	    document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='slider-text-holder' id='slider-id-" + retailer.categoryId + "' onclick='removeAndUpdateSlider(" + retailer.categoryId + ");'><p class='slider-text'>" + retailer.category + "</p></div></div>";
+	    categoriesInBar.push(retailer.category);
       }
     }
 
@@ -612,9 +635,7 @@ window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
  isFlutterInAppWebViewReady = true;
 });
 
-goToHomePage();
+initBaseLayer();
 clearCacheBtn();
 openMapsBtn();
-//grabs user location then builds "Near Me"
-localStorage.setItem("bodyContainerInnerHtml", document.querySelector(".body-container").innerHTML);
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })

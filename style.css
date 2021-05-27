@@ -12,13 +12,18 @@ p {
  font-family: 'Roboto', sans-serif;
 }
 
-.body-container {
+.layer-container {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   width: 100vw;
   height: 100vh;
-  
+  max-height: 100vh;
+  overflow-y: auto;
+  background: white;
 }
 
 .catalog-img {
