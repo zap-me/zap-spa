@@ -15,7 +15,6 @@ const promoIsRelevant = function(retailerId, bannerUrl, logoUrl) {
         console.log(`current d is ${d}`);
 	if (d <= 15000) {
 	  document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + store.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + bannerUrl + "'/><img src='" + logoUrl + "' class='promo-box-logo'/></div></div>";
-          addPromosSwiper();
           return true;
 	}
       
@@ -659,4 +658,4 @@ grabUserLocation();
 clearCacheBtn();
 openMapsBtn();
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
-addPromosSwiper();
+setTimeout(function(){addPromosSwiper();}, 3000);
