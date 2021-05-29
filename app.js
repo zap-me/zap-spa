@@ -6,6 +6,26 @@ var latitude;
 var longitude;
 var mapBtnPressed;
 
+const promoIsRelevant = function(retailerId, bannerUrl, logoUrl) {
+  fetchData("getdetail/" + retailerId, function(data) {
+    data.allStores.forEach(
+      function(store) {
+        console.log(`current store lng is ${parseFloat(store.lng)}`);
+	var d = findProximity(latitude, longitude, parseFloat(store.lat), parseFloat(store.lng));
+        console.log(`current d is ${d}`);
+	if (d <= 15000) {
+	  document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + store.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + bannerUrl + "'/><img src='" + logoUrl + "' class='promo-box-logo'/></div></div>";
+          addPromosSwiper();
+          return true;
+	}
+      
+      }
+    );
+    return false;
+  }
+  );
+}
+
 const lastElement = function(selector) {
     var eles = document.querySelectorAll(selector);
     return Array.from(eles).pop();
@@ -238,11 +258,14 @@ const geoError = function() {
 const geoSuccess = function(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
-  storesWithinXMeters(10000, latitude, longitude);
+  if (mapBtnPressed) {
+    storesWithinXMeters(10000, latitude, longitude);
+  }
   
 };
 //builds "Near Me" div
 const storesWithinXMeters= function(maxDistance, latitude, longitude) {
+  mapBtnPressed = false;
   var mymap = L.map('mapid').on("load", function(){
     document.querySelector(".loading-container").setAttribute("style", "display: none;");
   }).setView([parseFloat(latitude), parseFloat(longitude)], 13);  
@@ -409,11 +432,9 @@ const addPromos = function(layer) {
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
          (element) => {
-           console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + element.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
+           promoIsRelevant(element.retailerId, element.banner.uri, element.logo.uri)
          }
        );
-    addPromosSwiper();
     });
 };
 
@@ -634,6 +655,8 @@ window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
 });
 
 initBaseLayer();
+grabUserLocation();
 clearCacheBtn();
 openMapsBtn();
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
+addPromosSwiper();
