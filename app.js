@@ -43,11 +43,9 @@ const searchItems = function() {
     layer = makeLayer('search');
     layer.innerHTML = `
   <div class="search-container">
-	<div class="inline-tl">
-	  <a id="back" href="#" onclick="goBack()" class="float-btn">
-	    <i class="fa fa-angle-left float-icon"></i>
-	  </a>
-	</div>
+    <a id="back" href="#" onclick="goBack()" class="float-bl float-btn">
+      <i class="fa fa-angle-left float-icon"></i>
+    </a>
 	<input class="search-bar" type="text" placeholder="${searchString}">
 	<div class="search-btn-div" onclick="searchItems();">
 	  <i class="fa fa-search"></i>
@@ -115,7 +113,7 @@ const createMaps = function() {
      </div>
     `;
  layer.innerHTML += `
-  <a id="back" href="#" onclick="goBack()" class="float-tl float-btn">
+  <a id="back" href="#" onclick="goBack()" class="float-bl float-btn">
     <i class="fa fa-angle-left float-icon"></i>
   </a>
   `;
@@ -188,7 +186,7 @@ const makePage = function(element_string, promoClicked) {
   }
   layer.innerHTML = `
 <div class='retailer-page-container'>
-  <a id="back" href="#" onclick="goBack()" class="float-btn float-tl">
+  <a id="back" href="#" onclick="goBack()" class="float-btn float-bl">
     <i class="fa fa-angle-left float-icon"></i>
   </a>
   <img class='page-img' src='${element_string.image.uri}' />
@@ -610,11 +608,9 @@ const viewAll = function(categoryId) {
   layer.innerHTML = `
 <div class='viewall-page-container'>
   <div class='viewall-categories-bar'>
-    <div class="inline-tl">
-      <a id="back" href="#" onclick="goBack()" class="float-btn">
-        <i class="fa fa-angle-left float-icon"></i>
-      </a>
-    </div>
+    <a id="back" href="#" onclick="goBack()" class="float-bl float-btn">
+      <i class="fa fa-angle-left float-icon"></i>
+    </a>
     <div id="viewall-swiper-wrapper" class='swiper-wrapper'></div>
   </div>
 </div>
