@@ -658,4 +658,4 @@ grabUserLocation();
 clearCacheBtn();
 openMapsBtn();
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
-setTimeout(function(){addPromosSwiper();}, 4000);
+setTimeout(function(){addPromosSwiper();}, 3000);
