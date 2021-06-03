@@ -367,6 +367,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  text-align: center;
   width: 100vw;
   height: 60vw;
   margin-top: 10vw;
@@ -388,26 +389,20 @@ a {
 }
 
 .float-btn {
-  width: 8vw;
-  height: 8vw;
-  font-size: 4vw;
+  width: 12vw;
+  height: 12vw;
+  font-size: 6vw;
   background-color: rgb(62, 111, 193);
   color: #FFF;
-  border-radius: 8vw;
-  box-shadow: 2px 2px 3px #999;
+  border-radius: 12vw;
+  box-shadow: 4px 4px 4px #999;
   z-index: 999;
 }
 
-.float-tl {
+.float-bl {
   position: fixed;
-  top: 20px;
-  left: 20px;
-}
-
-.inline-tl {
-  display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
+  bottom: 5vw;
+  left: 5vw;
 }
 
 .float-br {
@@ -418,7 +413,7 @@ a {
 
 .float-maps {
   position: fixed;
-  bottom: 20vw;
+  bottom: 25vw;
   right: 5vw;
 }
 
@@ -547,8 +542,9 @@ a {
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
   width: 50vw;
-  margin-left: 5vw;
-  margin-top: 5vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vw;
 }
 
 input[type='checkbox'] {
