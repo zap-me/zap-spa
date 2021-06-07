@@ -49,7 +49,7 @@ const searchItems = function() {
 	document.querySelector(".search-results-container").innerHTML+=`
 	  <div class="search-result-item">
 	    <div class="image-holder">
-	      <img class="search-result-img" src="${element.image.uri}"/>
+	      <img class="search-result-img" src="${element.image.uri}" onerror="this.src='placeholder-square.png'" />
 	    </div>
 	    <div class="text-holder-result">
 	      <p class="title-result">${element.retailer}</p>
@@ -170,7 +170,7 @@ const makePage = function(element_string, promoClicked) {
   <a id="back" href="#" onclick="goBack()" class="float-btn float-bl">
     <i class="fa fa-angle-left float-icon"></i>
   </a>
-  <img class='page-img' src='${element_string.image.uri}' />
+  <img class='page-img' src='${element_string.image.uri}' onerror="this.src='placeholder-retailer.png'" />
   <div class='container-card'>
     <div class='title-holder'><p class='category-title' onclick='viewAll(${element_string.categoryId});'>${element_string.category.toUpperCase()}</p></div>
     <div class='title-holder' ><p class='retailer-title'>${element_string.label}</p></div>
@@ -408,7 +408,13 @@ const addPromos = function(layer) {
        response.data.content.forEach(
          (element) => {
            console.log(element.desc);
-           document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + element.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + element.banner.uri + "'/><img src='" + element.logo.uri + "' class='promo-box-logo'/></div></div>";
+           document.querySelector(".swiper-wrapper").innerHTML+=`
+           <div class='swiper-slide'>
+            <div class='promo-box' onclick='makePageById(${element.retailerId});'>
+              <img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='${element.banner.uri}' onerror="this.src='placeholder-promo.png'"/>
+              <img src='${element.logo.uri}' class='promo-box-logo' onerror="this.src='placeholder-square.png'"/>
+            </div>
+          </div>`;
          }
        );
     addPromosSwiper();
@@ -432,7 +438,10 @@ const iterateThruAndAppend = function(layer, items) {
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
-    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePageById(" + element.retailerId + ");' /></div>";
+    lastCategoryArr.innerHTML+=`
+    <div class='swiper-slide'>
+        <img class='lozad catalog-img' data-src='${element.image.uri}' onclick='makePageById(${element.retailerId});' onerror="this.src='placeholder-square.png'" />
+    </div>`;
   }
   );
   
