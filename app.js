@@ -1,13 +1,15 @@
 const SWIPER_SLIDE_MARGIN_RIGHT = 0;
 const SWIPER_CONTAINER_MARGIN = '5vw';
 
+var promoPromises = [];
+
 var isFlutterInAppWebViewReady = false;
 var latitude;
 var longitude;
 var mapBtnPressed;
 
-const promoIsRelevant = function(retailerId, bannerUrl, logoUrl) {
-  fetchData("getdetail/" + retailerId, function(data) {
+const promoIsRelevant = async function(retailerId, bannerUrl, logoUrl) {
+  return await fetchData("getdetail/" + retailerId, function(data) {
     data.allStores.forEach(
       function(store) {
         console.log(`current store lng is ${parseFloat(store.lng)}`);
@@ -332,8 +334,8 @@ const grabUserLocation = function() {
 };
 
 //requests function
-const fetchData = function(endpoint, callback) {
-    fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/" + endpoint,
+const fetchData = async function(endpoint, callback) {
+    await fetch("https://zap-spa-cors-anywhere.caprover.acuerdo.dev/https://content.zap.me/_ps/api/zap/" + endpoint,
         {
             headers:
             {
@@ -431,9 +433,17 @@ const addPromos = function(layer) {
   fetchData('getpromotions/', function(response) {
        response.data.content.forEach(
          (element) => {
-           promoIsRelevant(element.retailerId, element.banner.uri, element.logo.uri)
+           promoPromises.push(promoIsRelevant(element.retailerId, element.banner.uri, element.logo.uri));
          }
        );
+      console.log(`promoPromises : ${promoPromises}`);
+      Promise.all(promoPromises).then(
+	function(results) {
+	  console.log("all promises settled");
+	  addPromosSwiper();
+
+	}
+      );
     });
 };
 
@@ -658,4 +668,4 @@ grabUserLocation();
 clearCacheBtn();
 openMapsBtn();
 window.addEventListener("keydown", function (e) { if (13 == e.keyCode) {searchItems();} })
-setTimeout(function(){addPromosSwiper();}, 4000);
+//setTimeout(function(){addPromosSwiper();}, 4000);
