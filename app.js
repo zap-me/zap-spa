@@ -12,9 +12,7 @@ const promoIsRelevant = async function(retailerId, bannerUrl, logoUrl) {
   return await fetchData("getdetail/" + retailerId, function(data) {
     data.allStores.forEach(
       function(store) {
-        console.log(`current store lng is ${parseFloat(store.lng)}`);
 	var d = findProximity(latitude, longitude, parseFloat(store.lat), parseFloat(store.lng));
-        console.log(`current d is ${d}`);
 	if (d <= 15000) {
 	  document.querySelector(".swiper-wrapper").innerHTML+="<div class='swiper-slide'><div class='promo-box' onclick='makePageById(" + store.retailerId + ");'><img class='lozad catalog-img' style='width:90vw; height: 40vw; border-radius: 0;' src='" + bannerUrl + "'/><img src='" + logoUrl + "' class='promo-box-logo'/></div></div>";
           return true;
@@ -436,10 +434,8 @@ const addPromos = function(layer) {
            promoPromises.push(promoIsRelevant(element.retailerId, element.banner.uri, element.logo.uri));
          }
        );
-      console.log(`promoPromises : ${promoPromises}`);
       Promise.all(promoPromises).then(
 	function(results) {
-	  console.log("all promises settled");
 	  addPromosSwiper();
 
 	}
