@@ -458,7 +458,7 @@ const iterateThruAndAppend = function(layer, items) {
       categoriesSoFar.push("category-" + element.categoryId);
     }
     var lastCategoryArr = document.querySelector("#" + categoriesSoFar[categoriesSoFar.length - 1]);
-    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-src='" + element.image.uri + "' onclick='makePageById(" + element.retailerId + ");' /></div>";
+    lastCategoryArr.innerHTML+="<div class='swiper-slide'><img class='lozad catalog-img' data-placeholder-background='#EEEEEE' data-src='" + element.image.uri + "' onclick='makePageById(" + element.retailerId + ");' /></div>";
   }
   );
   
