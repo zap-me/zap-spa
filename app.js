@@ -434,8 +434,12 @@ const addPromos = function(layer) {
          }
        );
     Promise.all(promoPromises).then(	
-      function(results) {	
-        addPromosSwiper();	
+      function(results) {
+        if (document.querySelector("#promos-wrapper").childElementCount == 0) {
+          document.querySelector(".promos-container").remove();
+        } else {
+          addPromosSwiper();	
+        }
       }	
     );
     });
