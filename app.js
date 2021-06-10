@@ -424,7 +424,7 @@ const addSwiper = function(className, numSlides, numSpace, autoPlay) {
 
 const addPromos = function(layer) {
   layer.innerHTML+=`<div class='svg-holder'><img class='svg-holder-svg' src='places.svg'/></div>`;
-  layer.innerHTML+="<div class='promos-container'></div>";
+  layer.innerHTML+="<div class='promos-container' style='display: none;'></div>";
   document.querySelector(".promos-container").innerHTML+="<p class='tall-size'>Latest Promotions</p>";
   document.querySelector(".promos-container").innerHTML+=`<div class='swiper-promos-container'><div class='swiper-wrapper' id='promos-wrapper'></div></div>`;
   fetchData('getpromotions/', function(response) {
@@ -435,10 +435,9 @@ const addPromos = function(layer) {
        );
     Promise.all(promoPromises).then(	
       function(results) {
-        if (document.querySelector("#promos-wrapper").childElementCount == 0) {
-          document.querySelector(".promos-container").remove();
-        } else {
-          addPromosSwiper();	
+        if (document.querySelector("#promos-wrapper").childElementCount !== 0) {
+          addPromosSwiper();
+          document.querySelector(".promos-container").setAttribute("style", "display: flex;"); 
         }
       }	
     );
