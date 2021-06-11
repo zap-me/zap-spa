@@ -347,6 +347,10 @@ const clearCacheBtn = function() {
     document.getElementById("clear-cache").onclick = function() {
         localStorage.clear();
         location.reload(true);
+        // backup if location.reload does not work
+        setTimeout(function() {
+            location.href = location.href.split('#')[0];
+        }, 200);
     };
 }
 
